@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image,Card,ScrollView } from 'react-native';
+import {Card} from 'react-native-shadow-cards';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image,ScrollView } from 'react-native';
 
 
 export default class  Dashboard extends Component{
@@ -9,8 +10,32 @@ export default class  Dashboard extends Component{
         <ScrollView>
         <View style={styles.container}>
         <Text style={styles.DashboardText}>Dashboard</Text>
-        </View>
+        <Card style={styles.upcardContainer}>
+        <View style={styles.subContainer}>
+                        <TouchableOpacity style={styles.button} onPress={() => {
+                            this.props.navigation.navigate('AssignedHires')
+                        }}>
+                        <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => {
+                            this.props.navigation.navigate('UpcomingHires');
+                        }}>
+                        <Text style={styles.buttonText}>UPCOMING HIRES</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => {
+                            this.props.navigation.navigate('PastHires');
+                        }}>
+                            <Text style={styles.buttonText}>PAST HIRES</Text>
+                        </TouchableOpacity>
+                    </View>
+      </Card>
+     
+      <Card style={styles.downcardContainer}>
+      <Text>Hello</Text>
+      </Card>
+      </View>
         </ScrollView>
+
         );
     }
 }
@@ -30,7 +55,38 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#fff',
         flex:1
-    }
+    },
+    upcardContainer: {
+        flex: 1,
+        padding: 100, 
+        margin: 10, 
+        height: 50
+    },
+    subContainer: {
+        flex: 1,
+        paddingTop: 10,
+        paddingBottom: 20,
+        borderBottomWidth: 2,
+        borderBottomColor: '#CCCCCC',
+    },
+    button: {
+        marginTop: 7,
+        marginBottom: 7,
+        paddingVertical: 3,
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 5,
+        width: '100%',
+        height: 50,
+    },
+    buttonText: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: 'black',
+        paddingVertical: 8
+    }    
       
       
   });
