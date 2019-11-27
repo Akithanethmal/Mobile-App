@@ -47,7 +47,7 @@ export default class  Form extends Component {
     inputbox:{
       width:375,
       height: 50,
-      backgroundColor:'#fff',
+      backgroundColor:'#ffff',
       borderRadius:25,
       paddingHorizontal:15,
       fontSize: 20,

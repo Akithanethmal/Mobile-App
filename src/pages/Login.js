@@ -5,12 +5,15 @@ import Form from '../components/Form';
 
 export default class  Login extends Component {
 render(){
+  <ScrollView>
   return (
     <View style={styles.container}>
         <Logo/>
         <Form type="Login"/>
     </View>
   );
+  </ScrollView>
+  
   }
 }
 
