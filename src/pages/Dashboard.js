@@ -1,26 +1,32 @@
 import React, { Component }from 'react';
-import {Card} from 'react-native-shadow-cards';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image,ScrollView } from 'react-native';
+import {Card,Button} from 'react-native-elements'
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Image,ScrollView } from 'react-native';
 
 
 export default class  Dashboard extends Component{
-
+    static navigationOptions = {
+        title: 'Dashboard',
+        headerTitleStyle: {
+            fontSize:25,
+            textAlign:"center", 
+            flex:1 
+        },  
+    };
     render(){
         return(
-        <ScrollView>
-        <View style={styles.container}>
-        <Text style={styles.DashboardText}>Dashboard</Text>
-        <Card style={styles.upcardContainer}>
-        <View style={styles.subContainer}>
+            <ScrollView style={styles.container}>
+        
+                <Card containerStyle={styles.upcardContainer}>
+                    <View style={styles.subContainer}>
                         <TouchableOpacity style={styles.button} onPress={() => {
                             this.props.navigation.navigate('AssignedHires')
                         }}>
-                        <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
+                            <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => {
                             this.props.navigation.navigate('UpcomingHires');
                         }}>
-                        <Text style={styles.buttonText}>UPCOMING HIRES</Text>
+                            <Text style={styles.buttonText}>UPCOMING HIRES</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => {
                             this.props.navigation.navigate('PastHires');
@@ -28,13 +34,21 @@ export default class  Dashboard extends Component{
                             <Text style={styles.buttonText}>PAST HIRES</Text>
                         </TouchableOpacity>
                     </View>
-      </Card>
-     
-      <Card style={styles.downcardContainer}>
-      <Text>Hello</Text>
-      </Card>
-      </View>
-        </ScrollView>
+                </Card>
+                
+                <Card containerStyle={styles.downcardContainer}>
+                    <View>
+                        <Text style = {{fontSize:35,fontWeight:'bold',padding:10}}>Ongoing Hire</Text>
+                        <Text style = {{fontSize:20,paddingVertical:5,paddingHorizontal:10, borderBottomWidth:2, borderBottomColor:'#ccc',marginBottom:10}}>There is no hire assigned for today! Party hard man...</Text>
+                    </View>
+                    <Button
+                        title='Party Hard'
+                        type='solid'
+                        raised
+                        buttonStyle={styles.partyhardbutton}
+                    />
+                </Card>
+            </ScrollView>
 
         );
     }
@@ -42,28 +56,37 @@ export default class  Dashboard extends Component{
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: '#191919',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 40,
-      flex:1
+      flex:1,
+      flexDirection:'column',
+      backgroundColor: '#fff',//#191919
+      paddingVertical:40
       //edting
       },
-
+      DashboardTextContainer:{
+          height:'10%',
+          width:'100%',
+          alignContent:'center',
+          justifyContent:'center'
+      },
       DashboardText:{
+        textAlign:"center",
         fontSize:40,
         fontWeight: 'bold',
-        color: '#fff',
-        flex:1
+        color: '#000',
+        justifyContent:'center',
+        
     },
     upcardContainer: {
-        flex: 1,
-        padding: 100, 
+        flexShrink:1,
+        padding: 20, 
         margin: 10, 
-        height: 50
+        height: 275,
+        width:'95%',
+        justifyContent:'center',
+        borderRadius:10,
     },
     subContainer: {
-        flex: 1,
+        width:'100%',
         paddingTop: 10,
         paddingBottom: 20,
         borderBottomWidth: 2,
@@ -86,8 +109,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
         paddingVertical: 8
-    }    
-      
+    }  ,
+    downcardContainer:{
+        flexShrink:1,
+        width:'95%',
+        borderRadius:10
+    },
+    partyhardbutton:{
+        backgroundColor:'#0b7a07'
+    } 
       
   });
   

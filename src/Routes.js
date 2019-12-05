@@ -1,17 +1,23 @@
-import React ,{Component}from 'react';
-import {Router,Stack,Scene} from 'react-native-router-flux';
+import {createAppContainer} from 'react-navigation'
+import {createStackNavigator} from 'react-navigation-stack'
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard';
 
-export default class  Routes extends Component{
-    render(){
-        return(
-            <Router>
-            <Stack key="root">
-              <Scene key="login" component={Login} title="Login" />
-              <Scene key="register" component={Register} title="Register" />
-              <Scene key="home" component={Home} />
-            </Stack>
-          </Router>
-        );
-    }
+const isLogin = false
 
-}
+const SwitchNavigator = createStackNavigator(
+  {   
+      Login: {
+          screen: Login,
+      },
+      Dashboard: {
+          screen: Dashboard
+      },
+     
+  },
+  {
+      initialRouteName: isLogin ? 'Dashboard' :  'Login'
+  }
+)
+
+export default createAppContainer(SwitchNavigator)

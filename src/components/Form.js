@@ -24,7 +24,7 @@ export default class  Form extends Component {
       ref={(input)=>this.password=input}
       />
 
-      <TouchableOpacity style={styles.button} >
+      <TouchableOpacity style={styles.button} onPress={()=>this.props.navigation.replace('Dashboard')}>
         <Text style={styles.buttonText}>{this.props.type}</Text>
 
       </TouchableOpacity>
