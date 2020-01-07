@@ -1,7 +1,22 @@
 import React ,{Component}from 'react';
 import { StyleSheet, Text, View,TextInput,TouchableOpacity,ScrollView } from 'react-native';
+import firebase from '../../config/Firebase';
 
 export default class  Form extends Component {
+  constructor(props){
+    super(props)
+  }
+  state = {
+    email:'',
+    password:'',
+  }
+  login(){
+    firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
+    .then(user=>console.log(user.user))
+    .catch(error=>{
+      alert(error);
+    })
+  }
   render(){
     return (
       <ScrollView>
@@ -13,6 +28,8 @@ export default class  Form extends Component {
       keyboardType="email-address"
       placeholderTextColor='#000000'
       onSubmitEditing={()=> this.password.focus()}
+      onChangeText = {text => this.setState({email:text})}
+      value = {this.state.email}
       />
 
       
@@ -22,9 +39,11 @@ export default class  Form extends Component {
       placeholder="Password"
       placeholderTextColor='#000000'
       ref={(input)=>this.password=input}
+      onChangeText = {text => this.setState({password:text})}
+      value = {this.state.password}
       />
 
-      <TouchableOpacity style={styles.button} onPress={()=>this.props.navigation.replace('Dashboard')}>
+      <TouchableOpacity style={styles.button} onPress={()=>this.login()}>
         <Text style={styles.buttonText}>{this.props.type}</Text>
 
       </TouchableOpacity>
