@@ -19,7 +19,7 @@ export default class  Dashboard extends Component{
                 <Card containerStyle={styles.upcardContainer}>
                     <View style={styles.subContainer}>
                         <TouchableOpacity style={styles.button} onPress={() => {
-                            this.props.navigation.navigate('AssignedHires')
+                            this.props.navigation.navigate('HireAssignment')
                         }}>
                             <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
                         </TouchableOpacity>

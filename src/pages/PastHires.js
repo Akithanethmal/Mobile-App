@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-export default class HireAssignment extends Component {
+export default class PastHires extends Component {
     static navigationOptions = {
-        title: 'Assigned Hires',
+        title: 'Past Hires',
         headerTitleStyle: {
             fontSize:25,
             textAlign:"center", 
@@ -19,7 +19,7 @@ export default class HireAssignment extends Component {
   render() {
     return (
       <View>
-        <Text> HireAssignment </Text>
+        <Text> PastHires </Text>
       </View>
     );
   }

@@ -1,8 +1,9 @@
 import {createAppContainer} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
-import Login from './pages/Login'
-import Dashboard from './pages/Dashboard';
-import AuthLoading from './pages/AuthLoading';
+import Login from '../src/pages/Login'
+import DashboardRouts from './DashboardRouts';
+import AuthLoading from '../src/pages/AuthLoading';
+//import HireAssignment from '../src/pages/HireAssignment';
 
 const SwitchNavigator = createStackNavigator(
   {   Loader:{
@@ -14,8 +15,11 @@ const SwitchNavigator = createStackNavigator(
       Login: {
           screen: Login,
       },
-      Dashboard: {
-          screen: Dashboard
+      DashboardRouts: {
+          screen: DashboardRouts,
+          navigationOptions: () => ({
+            header:null
+          })
       },
      
   },

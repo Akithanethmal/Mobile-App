@@ -6,7 +6,7 @@ export default class AuthLoading extends Component {
   
     componentDidMount=()=>{
         firebase.auth().onAuthStateChanged(user=>{
-            this.props.navigation.navigate(user?'Dashboard':'Login');
+            this.props.navigation.navigate(user?'DashboardRouts':'Login');
             
         })
     }
