@@ -1,6 +1,7 @@
 import React ,{Component}from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity,ScrollView } from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity,ScrollView,AsyncStorage } from 'react-native';
 import firebase from '../../config/Firebase';
+require("firebase/firestore");
 
 export default class  Form extends Component {
   constructor(props){
@@ -12,9 +13,23 @@ export default class  Form extends Component {
   }
   login(){
     firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
-    .then(user=>console.log(user.user))
+    .then(user=>{
+      this.getUserData(user.user.uid);
+    })
     .catch(error=>{
       alert(error);
+    })
+  }
+  getUserData(token){
+    const db = firebase.firestore();
+    db.collection('drivers').doc(token).get()
+    .then(user=>{
+      Object.entries(user.data()).forEach(async ([key,value]) => {
+        await AsyncStorage.setItem(key.toString(),value.toString());
+      });
+    })
+    .catch(error=>{
+      alert(error.message)
     })
   }
   render(){

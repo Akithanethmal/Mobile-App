@@ -10,10 +10,14 @@ export default class HireAssignment extends Component {
             flex:1 
         },  
     };
+  data = this.props.navigation.state.params.assignedhires;
   constructor(props) {
     super(props);
     this.state = {
     };
+  }
+  componentDidMount(){
+    console.log(this.data)
   }
 
   render() {

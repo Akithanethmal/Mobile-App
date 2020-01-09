@@ -1,6 +1,7 @@
 import React, { Component }from 'react';
 import {Card,Button} from 'react-native-elements'
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Image,ScrollView } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Image,ScrollView, AsyncStorage } from 'react-native';
+import firebase from '../../config/Firebase';
 
 
 export default class  Dashboard extends Component{
@@ -12,6 +13,54 @@ export default class  Dashboard extends Component{
             flex:1 
         },  
     };
+    constructor(props){
+        super(props)
+        state = {
+            token:'',
+            assignedhires:[],
+            upcominghires:[],
+            pasthires:[],
+            ongoing:[],
+        }
+    }
+    
+    async componentDidMount()
+    {
+        const id = await AsyncStorage.getItem('id')
+        this.setState({token:id});
+        this.getHireData()
+    }
+    getHireData(){
+        const db = firebase.firestore();
+        db.collection("hires").where("driverId", "==", this.state.token)
+        .get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                pickupdate = Date.parse(doc.data().pickupDatetime).prototype.getDate()
+                today = new Date().prototype.getDate();
+                if(doc.data().hireStatus === 'request')
+                {
+                    this.state.assignedhires.push(doc.data())
+                }
+                else if(doc.data().hireStatus === 'ongoing'){
+                    this.state.upcominghires.push(doc.data())
+                }
+                else if(doc.data().hireStatus === 'ongoing' && today === pickupdate){
+                    this.state.ongoing.push(doc.data())
+                }
+                else if(doc.data().hireStatus === 'completed'){
+                    this.state.pasthires.push(doc.data())
+                }
+            });
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
+    }
+    logout(){
+        firebase.auth().signOut();
+        this.props.navigation.goBack()
+    }
     render(){
         return(
             <ScrollView style={styles.container}>
@@ -19,17 +68,17 @@ export default class  Dashboard extends Component{
                 <Card containerStyle={styles.upcardContainer}>
                     <View style={styles.subContainer}>
                         <TouchableOpacity style={styles.button} onPress={() => {
-                            this.props.navigation.navigate('HireAssignment')
+                            this.props.navigation.navigate('HireAssignment',{assignedhires:this.state.assignedhires})
                         }}>
                             <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => {
-                            this.props.navigation.navigate('UpcomingHires');
+                            this.props.navigation.navigate('UpcomingHires',{upcominghires:this.state.upcominghires});
                         }}>
                             <Text style={styles.buttonText}>UPCOMING HIRES</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => {
-                            this.props.navigation.navigate('PastHires');
+                            this.props.navigation.navigate('PastHires',{pasthires:this.state.pasthires});
                         }}>
                             <Text style={styles.buttonText}>PAST HIRES</Text>
                         </TouchableOpacity>
@@ -46,6 +95,7 @@ export default class  Dashboard extends Component{
                         type='solid'
                         raised
                         buttonStyle={styles.partyhardbutton}
+                        onPress={()=>this.logout()}
                     />
                 </Card>
             </ScrollView>

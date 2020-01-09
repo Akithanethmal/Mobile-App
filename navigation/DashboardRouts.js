@@ -19,10 +19,7 @@ const DashboardNavigator = createStackNavigator(
       PastHires:{
           screen:PastHires
       },
-
-     
- 
-  
+      
       initialRouteName:'Dashboard'
   }
 )
