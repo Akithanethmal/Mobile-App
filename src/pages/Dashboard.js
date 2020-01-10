@@ -16,7 +16,6 @@ export default class  Dashboard extends Component{
     };
     constructor(props){
         super(props)
-        this.getHireData = this.getHireData.bind(this);
     }
     state = {
         token:'',
@@ -42,18 +41,20 @@ export default class  Dashboard extends Component{
                 console.log(pickupdate + today)
                 if(doc.data().hireStatus === 'request')
                 {
-                    this.state.assignedhires.concat(doc.data())
+                    var joined = this.state.assignedhires.concat(doc.data());
+                    this.setState({ assignedhires: joined })
                 }
-                else if(doc.data().hireStatus === 'ongoing'){
+                else if(doc.data().hireStatus === 'ongoing' && today < pickupdate){
                     var joined = this.state.upcominghires.concat(doc.data());
                     this.setState({ upcominghires: joined })
-                    //  this.state.upcominghires.concat(doc.data())
                 }
                 else if(doc.data().hireStatus === 'ongoing' && today === pickupdate){
-                    this.state.ongoing.concat(doc.data())
+                    var joined = this.state.ongoing.concat(doc.data());
+                    this.setState({ ongoing: joined })
                 }
                 else if(doc.data().hireStatus === 'completed'){
-                    this.state.pasthires.concat(doc.data())
+                    var joined = this.state.pasthires.concat(doc.data());
+                    this.setState({ pasthires: joined })
                 }
             });
             console.log(this.state.assignedhires)
@@ -73,8 +74,7 @@ export default class  Dashboard extends Component{
                 <Card containerStyle={styles.upcardContainer}>
                     <View style={styles.subContainer}>
                         <TouchableOpacity style={styles.button} onPress={() => {
-                            const data = this.state.assignedhires;
-                            this.props.navigation.navigate('HireAssignment',this.state)
+                            this.props.navigation.navigate('HireAssignment',{assignedhires:this.state.assignedhires})
                         }}>
                             <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
                         </TouchableOpacity>

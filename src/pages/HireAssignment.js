@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class HireAssignment extends Component {
     static navigationOptions = {
@@ -17,15 +18,30 @@ export default class HireAssignment extends Component {
   }
   componentDidMount(){
     console.log(this.state.data)
+    
   }
 
   render() {
     return (
-      <View>
-        <Text> HireAssignment </Text>
-      </View>
+      <ScrollView>
+        <Card style={styles.container}>
+          <View>
+            <Text> HireAssignment </Text>
+          </View>
+          <View>
+            <Text h3>{this.state.data.hire.hireType.toUpperCase()}</Text>
+          </View>
+        </Card>
+      </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20
+  }
+  })
 
 
