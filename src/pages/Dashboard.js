@@ -16,15 +16,15 @@ export default class  Dashboard extends Component{
     };
     constructor(props){
         super(props)
-        state = {
-            token:'',
-            assignedhires:[],
-            upcominghires:[],
-            pasthires:[],
-            ongoing:[],
-        }
+        this.getHireData = this.getHireData.bind(this);
     }
-    
+    state = {
+        token:'',
+        assignedhires:[],
+        upcominghires:[],
+        pasthires:[],
+        ongoing:[],
+    }
     async componentDidMount()
     {
         const id = await AsyncStorage.getItem('id')
@@ -35,25 +35,28 @@ export default class  Dashboard extends Component{
         const db = firebase.firestore();
         db.collection("hires").where("driverId", "==", this.state.token)
         .get()
-        .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
+        .then((querySnapshot)=>{
+            querySnapshot.forEach((doc)=> {
                 pickupdate = moment(doc.data().pickupDatetime).format('MMM Do YYYY');
                 today = moment().format('MMM Do YYYY');
                 console.log(pickupdate + today)
                 if(doc.data().hireStatus === 'request')
                 {
-                    this.state.assignedhires.push(doc.data())
+                    this.state.assignedhires.concat(doc.data())
                 }
                 else if(doc.data().hireStatus === 'ongoing'){
-                    this.state.upcominghires.push(doc.data())
+                    var joined = this.state.upcominghires.concat(doc.data());
+                    this.setState({ upcominghires: joined })
+                    //  this.state.upcominghires.concat(doc.data())
                 }
                 else if(doc.data().hireStatus === 'ongoing' && today === pickupdate){
-                    this.state.ongoing.push(doc.data())
+                    this.state.ongoing.concat(doc.data())
                 }
                 else if(doc.data().hireStatus === 'completed'){
-                    this.state.pasthires.push(doc.data())
+                    this.state.pasthires.concat(doc.data())
                 }
             });
+            console.log(this.state.assignedhires)
         })
         .catch(function(error) {
             console.log("Error getting documents: ", error);
@@ -70,7 +73,8 @@ export default class  Dashboard extends Component{
                 <Card containerStyle={styles.upcardContainer}>
                     <View style={styles.subContainer}>
                         <TouchableOpacity style={styles.button} onPress={() => {
-                            this.props.navigation.navigate('HireAssignment',{assignedhires:this.state.assignedhires})
+                            const data = this.state.assignedhires;
+                            this.props.navigation.navigate('HireAssignment',this.state)
                         }}>
                             <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
                         </TouchableOpacity>

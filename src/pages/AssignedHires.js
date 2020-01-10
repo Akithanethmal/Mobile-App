@@ -10,16 +10,32 @@ export default class AssignedHires extends Component {
             flex:1 
         },  
     };
+  data = this.props.navigation.state.params
   constructor(props) {
-    super(props);
-    this.state = {
-    };
+    super(props);  
   }
-
+  state = {
+    data:this.data.assignedhires,
+  };
+  componentDidMount(){
+    console.log('hello')
+    console.log(this.data);
+    console.log(this.props.navigation)
+    this.setState({data:this.data.assignedhires})
+    console.log(this.state.data);
+    
+  }
   render() {
     return (
       <View>
         <Text> AssignedHires </Text>
+        {/* {
+        this.state.data.map((u,i)=>{
+          return(<View>
+            <Text>{u.hireStatus}</Text>
+          </View>)
+        })
+        } */}
       </View>
     );
   }
