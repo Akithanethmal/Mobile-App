@@ -2,6 +2,7 @@ import React, { Component }from 'react';
 import {Card,Button} from 'react-native-elements'
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Image,ScrollView, AsyncStorage } from 'react-native';
 import firebase from '../../config/Firebase';
+import moment from 'moment';
 
 
 export default class  Dashboard extends Component{
@@ -36,8 +37,9 @@ export default class  Dashboard extends Component{
         .get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
-                pickupdate = Date.parse(doc.data().pickupDatetime).prototype.getDate()
-                today = new Date().prototype.getDate();
+                pickupdate = moment(doc.data().pickupDatetime).format('MMM Do YYYY');
+                today = moment().format('MMM Do YYYY');
+                console.log(pickupdate + today)
                 if(doc.data().hireStatus === 'request')
                 {
                     this.state.assignedhires.push(doc.data())
