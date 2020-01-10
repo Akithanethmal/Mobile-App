@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView} from 'react-native';
+import { View, Text, StyleSheet, ScrollView,Modal,TouchableHighlight} from 'react-native';
 import {Icon, Card} from 'react-native-elements';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -18,6 +18,8 @@ export default class AssignedHires extends Component {
   }
   state = {
     data:this.data.assignedhires,
+    modalVisible:false,
+    doc:''
   };
   componentDidMount(){
     
@@ -34,7 +36,7 @@ export default class AssignedHires extends Component {
             containerStyle={styles.cardContainer}
             wrapperStyle={styles.wrapContainer}
           >
-            <TouchableOpacity style={styles.listItem} onPress={()=>alert('fuck u')}>
+            <TouchableOpacity style={styles.listItem} onPress={()=>this.setState({modalVisible:true, doc:u})}>
             <Icon
               name='directions-car'
               type='material'
@@ -48,6 +50,26 @@ export default class AssignedHires extends Component {
           </Card>)
         })
         }
+        <Modal
+        animationType="slide"
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {
+          this.setState({modalVisible:false})
+        }}>
+        <View style={{marginTop: 22}}>
+          <View>
+            <Text>{this.state.doc.pickupLocation}</Text>
+
+            <TouchableHighlight
+              onPress={() => {
+                this.setState({modalVisible:false})
+              }}>
+              <Text>Hide Modal</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Modal>
       </ScrollView>
     );
   }

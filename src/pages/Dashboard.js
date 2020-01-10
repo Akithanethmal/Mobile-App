@@ -57,7 +57,7 @@ export default class  Dashboard extends Component{
                     this.setState({ pasthires: joined })
                 }
             });
-            console.log(this.state.assignedhires)
+            console.log(this.state.upcominghires)
         })
         .catch(function(error) {
             console.log("Error getting documents: ", error);
@@ -74,6 +74,7 @@ export default class  Dashboard extends Component{
                 <Card containerStyle={styles.upcardContainer}>
                     <View style={styles.subContainer}>
                         <TouchableOpacity style={styles.button} onPress={() => {
+                        
                             this.props.navigation.navigate('HireAssignment',{assignedhires:this.state.assignedhires})
                         }}>
                             <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
