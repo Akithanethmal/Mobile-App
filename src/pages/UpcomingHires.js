@@ -6,8 +6,10 @@ import {
   ScrollView,
   Modal,
   TouchableHighlight,
-  Button
+  Button,
+  AsyncStorage
 } from "react-native";
+import firebase from "../../config/Firebase";
 import { Icon, Card } from "react-native-elements";
 import moment from "moment";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -28,6 +30,15 @@ export default class Upcominghires extends Component {
     data: this.data.upcominghires,
     modalVisible: false,
     doc: ""
+  };
+  async updateData(){
+    console.log("call");
+    const id = await AsyncStorage.getItem("id");
+    const db = firebase.firestore();
+    db.collection("hires").doc("kw2wHKFX91oRODunK0tG").update({
+      hireStatus:"request"
+    }).then(()=>  alert("Don't press bitch") ) 
+      .catch(() => console.log("error"))
   };
   componentDidMount() {}
   render() {
@@ -168,7 +179,7 @@ export default class Upcominghires extends Component {
                 title="Reject Hire"
                 buttonStyle={{ color: "f43208" }}
                 containerStyle={{ backgroundColor: "#f00" }}
-                onPress={() => alert("Don't press bitch")}
+                onPress={() => this.updateData()}
               />
             </View>
           </View>

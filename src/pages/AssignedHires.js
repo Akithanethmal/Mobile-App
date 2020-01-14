@@ -11,7 +11,7 @@ import {
 import { Icon, Card } from "react-native-elements";
 import moment from "moment";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import firebase from "../../config/Firebase";
 export default class AssignedHires extends Component {
   static navigationOptions = {
     title: "Assigned Hires",
@@ -24,12 +24,22 @@ export default class AssignedHires extends Component {
   constructor(props) {
     super(props);
   }
+  async updateData(){
+    const id = await AsyncStorage.getItem("id");
+    const db = firebase.firestore();
+    db.collection("hires").doc(id).update({
+      hireStatus:"request"
+    }).then(()=>  alert("Don't press bitch") ) 
+      .catch(console.log)
+  };
   state = {
     data: this.data.assignedhires,
     modalVisible: false,
     doc: ""
   };
-  componentDidMount() {}
+  componentDidMount() {
+   
+  }
   render() {
     return (
       <ScrollView>
@@ -178,7 +188,7 @@ export default class AssignedHires extends Component {
                 leftIcon={{ name: "delete" }}
                 title="Reject Hire"
                 buttonStyle={{ backgroundColor: "red" }}
-                onPress={() => alert("Don't press bitch")}
+                onPress={() => this.updateData}
               />
             </View>
           </View>
