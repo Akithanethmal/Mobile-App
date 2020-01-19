@@ -4,6 +4,9 @@ import Dashboard from "../src/pages/Dashboard";
 import AssignedHires from "../src/pages/AssignedHires";
 import UpcomingHires from "../src/pages/UpcomingHires";
 import PastHires from "../src/pages/PastHires";
+import OngoinHires from "../src/pages/OngoinHires";
+
+
 
 const DashboardNavigator = createStackNavigator({
   Dashboard: {
@@ -17,6 +20,9 @@ const DashboardNavigator = createStackNavigator({
   },
   PastHires: {
     screen: PastHires
+  },
+  OngoinHires: {
+    screen: OngoinHires
   },
 
   initialRouteName: "Dashboard"

@@ -117,22 +117,18 @@ export default class Dashboard extends Component {
 
         <Card containerStyle={styles.downcardContainer}>
           <View>
-            <Text style={{ fontSize: 35, fontWeight: "bold", padding: 10 }}>
-              Ongoing Hire
-            </Text>
-            <Text
-              style={{
-                fontSize: 20,
-                paddingVertical: 5,
-                paddingHorizontal: 10,
-                borderBottomWidth: 2,
-                borderBottomColor: "#ccc",
-                marginBottom: 10
+          <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                this.props.navigation.navigate("OngoinHires", {
+                  ongoing: this.state.ongoing
+                });
               }}
             >
-              There is no hire assigned for today! Party hard man...
-            </Text>
+              <Text style={styles.buttonText}>ONGOIN HIRES</Text>
+            </TouchableOpacity>
           </View>
+          
           <Button
             title="Party Hard"
             type="solid"

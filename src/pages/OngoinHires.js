@@ -6,17 +6,15 @@ import {
   ScrollView,
   Modal,
   TouchableHighlight,
-  Button,
-  AsyncStorage
+  Button
 } from "react-native";
-import firebase from "../../config/Firebase";
 import { Icon, Card } from "react-native-elements";
 import moment from "moment";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
-export default class Upcominghires extends Component {
+import firebase from "../../config/Firebase";
+export default class OngoinHires extends Component {
   static navigationOptions = {
-    title: "Upcoming Hires",
+    title: "Ongoin Hires",
     headerTitleStyle: {
       fontSize: 25,
       flex: 1
@@ -26,24 +24,22 @@ export default class Upcominghires extends Component {
   constructor(props) {
     super(props);
   }
+  async updateData(){
+    const id = await AsyncStorage.getItem("id");
+    const db = firebase.firestore();
+    db.collection("hires").doc(id).update({
+      hireStatus:"request"
+    }).then(()=>  alert("Don't press bitch") ) 
+      .catch(console.log)
+  };
   state = {
-    data: this.data.upcominghires,
+    data: this.data.ongoing,
     modalVisible: false,
     doc: ""
   };
-  async updateData() {
-    console.log("call");
-    const id = await AsyncStorage.getItem("id");
-    const db = firebase.firestore();
-    db.collection("hires")
-      .doc("kw2wHKFX91oRODunK0tG")
-      .update({
-        hireStatus: "request"
-      })
-      .then(() => alert("Don't press bitch"))
-      .catch(() => console.log("error"));
+  componentDidMount() {
+   
   }
-  componentDidMount() {}
   render() {
     return (
       <ScrollView>
@@ -177,12 +173,22 @@ export default class Upcominghires extends Component {
             <View style={styles.detailButton}>
               <Button
                 large
-                backgroundColor={"#f43208"}
+                backgroundColor={"#CCCCCC"}
                 leftIcon={{ name: "edit" }}
+                title="Accept Hire"
+                buttonStyle={{ backgroundColor: "green" }}
+                onPress={() => alert("Don't press bitch")}
+              />
+            </View>
+            <View style={styles.detailButton}>
+              <Button
+                large
+                backgroundColor={"#F00C0C"}
+                color={"#FFFFFF"}
+                leftIcon={{ name: "delete" }}
                 title="Reject Hire"
-                buttonStyle={{ color: "f43208" }}
-                containerStyle={{ backgroundColor: "#f00" }}
-                onPress={() => this.updateData()}
+                buttonStyle={{ backgroundColor: "red" }}
+                onPress={() => this.updateData}
               />
             </View>
           </View>
