@@ -24,22 +24,23 @@ export default class OngoinHires extends Component {
   constructor(props) {
     super(props);
   }
-  async updateData(){
+  async updateData() {
     const id = await AsyncStorage.getItem("id");
     const db = firebase.firestore();
-    db.collection("hires").doc(id).update({
-      hireStatus:"request"
-    }).then(()=>  alert("Don't press bitch") ) 
-      .catch(console.log)
-  };
+    db.collection("hires")
+      .doc(id)
+      .update({
+        hireStatus: "request"
+      })
+      .then(() => alert("Don't press bitch"))
+      .catch(console.log);
+  }
   state = {
     data: this.data.ongoing,
     modalVisible: false,
     doc: ""
   };
-  componentDidMount() {
-   
-  }
+  componentDidMount() {}
   render() {
     return (
       <ScrollView>
@@ -175,7 +176,7 @@ export default class OngoinHires extends Component {
                 large
                 backgroundColor={"#CCCCCC"}
                 leftIcon={{ name: "edit" }}
-                title="Accept Hire"
+                title="View Timeline"
                 buttonStyle={{ backgroundColor: "green" }}
                 onPress={() => alert("Don't press bitch")}
               />
