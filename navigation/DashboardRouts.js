@@ -5,6 +5,7 @@ import AssignedHires from "../src/pages/AssignedHires";
 import UpcomingHires from "../src/pages/UpcomingHires";
 import PastHires from "../src/pages/PastHires";
 import OngoinHires from "../src/pages/OngoinHires";
+import OngoinRouts from './OngoinRouts';
 
 const DashboardNavigator = createStackNavigator({
   Dashboard: {

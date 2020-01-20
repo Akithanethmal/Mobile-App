@@ -4,14 +4,11 @@ import OngoinHires from "../src/pages/OngoinHires";
 import TimeLine from "../src/pages/TimeLine";
 
 const OngoinNavigator = createStackNavigator({
-  OngoinHires: {
-    screen: OngoinHires
-  },
   TimeLine: {
     screen: TimeLine
   },
 
-  initialRouteName: "Ongoin"
+  initialRouteName: "TimeLine"
 });
 
 export default createAppContainer(OngoinNavigator);

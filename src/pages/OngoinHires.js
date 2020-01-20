@@ -178,7 +178,7 @@ export default class OngoinHires extends Component {
                 leftIcon={{ name: "edit" }}
                 title="View Timeline"
                 buttonStyle={{ backgroundColor: "green" }}
-                onPress={() =>this.props.navigation.navigate('TimeLine')}
+                onPress={() =>{this.setState({modalVisible: false});this.props.navigation.navigate('OngoinRouts')}}
               />
             </View>
           </View>
