@@ -5,10 +5,9 @@ import {
   StyleSheet,
   ScrollView,
   Modal,
-  TouchableHighlight,
-  Button
+  TouchableHighlight
 } from "react-native";
-import { Icon, Card } from "react-native-elements";
+import { Icon, Card,   Button } from "react-native-elements";
 import moment from "moment";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import firebase from "../../config/Firebase";
@@ -173,21 +172,20 @@ export default class AssignedHires extends Component {
             <View style={styles.detailButton}>
               <Button
                 large
-                backgroundColor={"#CCCCCC"}
-                leftIcon={{ name: "edit" }}
+                // leftIcon={{ name: "edit" }}
+                type='outline'
                 title="Accept Hire"
-                buttonStyle={{ backgroundColor: "green" }}
+                ContainerssStyle={{ borderColor:'#00f', }}
                 onPress={() => alert("Don't press bitch")}
               />
             </View>
             <View style={styles.detailButton}>
               <Button
-                large
-                backgroundColor={"#F00C0C"}
-                color={"#FFFFFF"}
-                leftIcon={{ name: "delete" }}
+                // leftIcon={{ name: "delete" }}
+                type='outline'
                 title="Reject Hire"
-                buttonStyle={{ backgroundColor: "red" }}
+                color='#f00'
+                // buttonStyle={{borderColor:'#f00', color:'#f00'}}
                 onPress={() => this.updateData}
               />
             </View>
@@ -241,6 +239,7 @@ const styles = StyleSheet.create({
     padding: 4
   },
   detailButton: {
-    marginTop: 0
+    marginHorizontal:'30%',
+    marginVertical:10,
   }
 });
