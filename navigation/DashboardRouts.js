@@ -6,8 +6,6 @@ import UpcomingHires from "../src/pages/UpcomingHires";
 import PastHires from "../src/pages/PastHires";
 import OngoinHires from "../src/pages/OngoinHires";
 
-
-
 const DashboardNavigator = createStackNavigator({
   Dashboard: {
     screen: Dashboard
@@ -24,6 +22,12 @@ const DashboardNavigator = createStackNavigator({
   OngoinHires: {
     screen: OngoinHires
   },
+  OngoinRouts: {
+    screen: OngoinRouts,
+    navigationOptions: () => ({
+      header:null
+    })
+},
 
   initialRouteName: "Dashboard"
 });

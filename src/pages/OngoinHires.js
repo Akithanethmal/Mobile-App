@@ -178,18 +178,7 @@ export default class OngoinHires extends Component {
                 leftIcon={{ name: "edit" }}
                 title="View Timeline"
                 buttonStyle={{ backgroundColor: "green" }}
-                onPress={() => alert("Don't press bitch")}
-              />
-            </View>
-            <View style={styles.detailButton}>
-              <Button
-                large
-                backgroundColor={"#F00C0C"}
-                color={"#FFFFFF"}
-                leftIcon={{ name: "delete" }}
-                title="Reject Hire"
-                buttonStyle={{ backgroundColor: "red" }}
-                onPress={() => this.updateData}
+                onPress={() =>this.props.navigation.navigate('TimeLine')}
               />
             </View>
           </View>
