@@ -174,11 +174,14 @@ export default class OngoinHires extends Component {
             <View style={styles.detailButton}>
               <Button
                 large
-                backgroundColor={"#CCCCCC"}
-                leftIcon={{ name: "edit" }}
+                // leftIcon={{ name: "edit" }}
+                type="outline"
                 title="View Timeline"
-                buttonStyle={{ backgroundColor: "green" }}
-                onPress={() =>{this.setState({modalVisible: false});this.props.navigation.navigate('OngoinRouts')}}
+                ContainerssStyle={{ borderColor: "#00f" }}
+                onPress={() => {
+                  this.setState({ modalVisible: false });
+                  this.props.navigation.navigate("OngoinRouts");
+                }}
               />
             </View>
           </View>
@@ -231,6 +234,7 @@ const styles = StyleSheet.create({
     padding: 4
   },
   detailButton: {
-    marginTop: 0
+    marginHorizontal: "30%",
+    marginVertical: 10
   }
 });

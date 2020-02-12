@@ -31,17 +31,17 @@ export default class Upcominghires extends Component {
     modalVisible: false,
     doc: ""
   };
-  async updateData() {
-    console.log("call");
-    const id = await AsyncStorage.getItem("id");
-    const db = firebase.firestore();
-    db.collection("hires")
-      .doc("kw2wHKFX91oRODunK0tG")
+  async rejectHire() {
+    console.log("call reject");
+    firebase
+      .firestore()
+      .collection("hires")
+      .doc(this.state.doc.id)
       .update({
-        hireStatus: "request"
+        hireStatus: "pending"
       })
-      .then(() => alert("Don't press bitch"))
-      .catch(() => console.log("error"));
+      .then(() => alert("Successfully Reject Hire"))
+      .catch(error => console.log(error));
   }
   componentDidMount() {}
   render() {
@@ -177,12 +177,11 @@ export default class Upcominghires extends Component {
             <View style={styles.detailButton}>
               <Button
                 large
-                backgroundColor={"#f43208"}
-                leftIcon={{ name: "edit" }}
+                // leftIcon={{ name: "edit" }}
+                type="outline"
                 title="Reject Hire"
-                buttonStyle={{ color: "f43208" }}
-                containerStyle={{ backgroundColor: "#f00" }}
-                onPress={() => this.updateData()}
+                ContainerssStyle={{ borderColor: "#00f" }}
+                onPress={() => this.rejectHire()}
               />
             </View>
           </View>
@@ -235,6 +234,7 @@ const styles = StyleSheet.create({
     padding: 4
   },
   detailButton: {
-    marginTop: 0
+    marginHorizontal: "30%",
+    marginVertical: 10
   }
 });

@@ -5,9 +5,10 @@ import {
   StyleSheet,
   ScrollView,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from "react-native";
-import { Icon, Card,   Button } from "react-native-elements";
+import { Icon, Card, Button } from "react-native-elements";
 import moment from "moment";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import firebase from "../../config/Firebase";
@@ -23,22 +24,37 @@ export default class AssignedHires extends Component {
   constructor(props) {
     super(props);
   }
-  async updateData(){
-    const id = await AsyncStorage.getItem("id");
-    const db = firebase.firestore();
-    db.collection("hires").doc(id).update({
-      hireStatus:"request"
-    }).then(()=>  alert("Don't press bitch") ) 
-      .catch(console.log)
-  };
+  async rejectData() {
+    //console.log("call reject");
+    firebase
+      .firestore()
+      .collection("hires")
+      .doc(this.state.doc.id)
+      .update({
+        hireStatus: "pending"
+      })
+      .then(() => alert("Successfully Reject Hire"))
+      .catch(error => console.log(error));
+  }
+  async acceptHire() {
+    //console.log("call accept");
+    //console.log(this.state.doc.id);
+    firebase
+      .firestore()
+      .collection("hires")
+      .doc(this.state.doc.id)
+      .update({
+        hireStatus: "ongoing"
+      })
+      .then(() => alert("Successfully Accept Hire"))
+      .catch(error => console.log(error));
+  }
   state = {
     data: this.data.assignedhires,
     modalVisible: false,
     doc: ""
   };
-  componentDidMount() {
-   
-  }
+  componentDidMount() {}
   render() {
     return (
       <ScrollView>
@@ -173,20 +189,20 @@ export default class AssignedHires extends Component {
               <Button
                 large
                 // leftIcon={{ name: "edit" }}
-                type='outline'
+                type="outline"
                 title="Accept Hire"
-                ContainerssStyle={{ borderColor:'#00f', }}
-                onPress={() => alert("Don't press bitch")}
+                ContainerssStyle={{ borderColor: "#00f" }}
+                onPress={() => this.acceptHire()}
               />
             </View>
             <View style={styles.detailButton}>
               <Button
                 // leftIcon={{ name: "delete" }}
-                type='outline'
+                type="outline"
                 title="Reject Hire"
-                color='#f00'
+                color="#f00"
                 // buttonStyle={{borderColor:'#f00', color:'#f00'}}
-                onPress={() => this.updateData}
+                onPress={() => this.rejectData()}
               />
             </View>
           </View>
@@ -239,7 +255,7 @@ const styles = StyleSheet.create({
     padding: 4
   },
   detailButton: {
-    marginHorizontal:'30%',
-    marginVertical:10,
+    marginHorizontal: "30%",
+    marginVertical: 10
   }
 });

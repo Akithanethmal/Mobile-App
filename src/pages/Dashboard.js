@@ -47,7 +47,7 @@ export default class Dashboard extends Component {
           pickupdate = moment(doc.data().pickupDatetime).format("MMM Do YYYY");
           today = moment().format("MMM Do YYYY");
           console.log(pickupdate + today);
-          if (doc.data().hireStatus === "request") {
+          if (doc.data().hireStatus === "driverPending") {
             var joined = this.state.assignedhires.concat(doc.data());
             this.setState({ assignedhires: joined });
           } else if (
@@ -117,7 +117,7 @@ export default class Dashboard extends Component {
 
         <Card containerStyle={styles.downcardContainer}>
           <View>
-          <TouchableOpacity
+            <TouchableOpacity
               style={styles.button}
               onPress={() => {
                 this.props.navigation.navigate("OngoinHires", {
@@ -128,7 +128,7 @@ export default class Dashboard extends Component {
               <Text style={styles.buttonText}>ONGOIN HIRES</Text>
             </TouchableOpacity>
           </View>
-          
+
           <Button
             title="Party Hard"
             type="solid"
