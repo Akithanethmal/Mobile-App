@@ -27,31 +27,45 @@ export default class TimeLine extends Component {
               style={styles.button}
               onPress={() => Alert.alert("Dont Press bitch")}
             >
-              <Text style={styles.buttonText}>Truck Dispatched</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
-            >
-              <Text style={styles.buttonText}>At Pickup Location</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
-            >
-              <Text style={styles.buttonText}>Cargo Location</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
-            >
-              <Text style={styles.buttonText}>In Taransit</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
-            >
               <Text style={styles.buttonText}>Hire Completed</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => Alert.alert("Dont Press bitch")}
+            >
+              <Text style={styles.buttonText}>Loading Port Reached</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => Alert.alert("Dont Press bitch")}
+            >
+              <Text style={styles.buttonText}>In Transit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => Alert.alert("Dont Press bitch")}
+            >
+              <Text style={styles.buttonText}>Cargo Loaded</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => Alert.alert("Dont Press bitch")}
+            >
+              <Text style={styles.buttonText}>In Transit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => Alert.alert("Dont Press bitch")}
+            >
+              <Text style={styles.buttonText}>
+                At Container Pickup Location
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => Alert.alert("Dont Press bitch")}
+            >
+              <Text style={styles.buttonText}>Truck Dispatched</Text>
             </TouchableOpacity>
           </View>
         </Card>

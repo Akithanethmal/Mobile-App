@@ -180,7 +180,8 @@ export default class OngoinHires extends Component {
                 ContainerssStyle={{ borderColor: "#00f" }}
                 onPress={() => {
                   this.setState({ modalVisible: false });
-                  this.props.navigation.navigate("OngoinRouts");
+                  {}
+                  this.props.navigation.navigate(this.state.doc.hireType==='import' ? 'Timeline_export' : 'Timeline_import');
                 }}
               />
             </View>
