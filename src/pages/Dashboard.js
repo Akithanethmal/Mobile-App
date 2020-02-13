@@ -33,9 +33,23 @@ export default class Dashboard extends Component {
     ongoing: []
   };
   async componentDidMount() {
-    const id = await AsyncStorage.getItem("id");
-    this.setState({ token: id });
-    this.getHireData();
+    this.willFocus = this.props.navigation.addListener(
+      "willFocus",
+      async () => {
+        id = await AsyncStorage.getItem("id");
+        this.setState({ token: id });
+        this.refreshState();
+        this.getHireData();
+      }
+    );
+  }
+  refreshState() {
+    this.setState({
+      assignedhires: [],
+      upcominghires: [],
+      pasthires: [],
+      ongoing: []
+    });
   }
   getHireData() {
     const db = firebase.firestore();
@@ -46,28 +60,34 @@ export default class Dashboard extends Component {
         querySnapshot.forEach(doc => {
           pickupdate = moment(doc.data().pickupDatetime).format("MMM Do YYYY");
           today = moment().format("MMM Do YYYY");
+          var id = { id: doc.id };
+          var data = doc.data();
+          var merged = { ...data, ...id };
           console.log(pickupdate + today);
           if (doc.data().hireStatus === "driverPending") {
-            var joined = this.state.assignedhires.concat(doc.data());
+            var joined = this.state.assignedhires.concat(merged);
             this.setState({ assignedhires: joined });
           } else if (
             doc.data().hireStatus === "ongoing" &&
             today < pickupdate
           ) {
-            var joined = this.state.upcominghires.concat(doc.data());
+            var joined = this.state.upcominghires.concat(merged);
             this.setState({ upcominghires: joined });
           } else if (
             doc.data().hireStatus === "ongoing" &&
             today === pickupdate
           ) {
-            var joined = this.state.ongoing.concat(doc.data());
+            var joined = this.state.ongoing.concat(merged);
             this.setState({ ongoing: joined });
           } else if (doc.data().hireStatus === "completed") {
-            var joined = this.state.pasthires.concat(doc.data());
+            var joined = this.state.pasthires.concat(merged);
             this.setState({ pasthires: joined });
           }
         });
-        console.log(this.state.upcominghires);
+        console.log(this.state.assignedhires);
+        // console.log(this.state.upcominghires);
+        // console.log(this.state.ongoing);
+        console.log(this.state.pasthires);
       })
       .catch(function(error) {
         console.log("Error getting documents: ", error);

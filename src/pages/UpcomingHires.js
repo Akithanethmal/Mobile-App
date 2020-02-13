@@ -40,8 +40,23 @@ export default class Upcominghires extends Component {
       .update({
         hireStatus: "pending"
       })
-      .then(() => alert("Successfully Reject Hire"))
+      .then(() => {
+        alert("Successfully Reject Hire");
+        this.removedata(this.state.doc.id);
+      })
       .catch(error => console.log(error));
+  }
+  removedata(id) {
+    var data = this.state.data;
+    var index = data
+      .map(function(d) {
+        return d["id"];
+      })
+      .indexOf(id);
+    if (index > -1) {
+      data.splice(index, 1);
+    }
+    this.setState({ data: data });
   }
   componentDidMount() {}
   render() {

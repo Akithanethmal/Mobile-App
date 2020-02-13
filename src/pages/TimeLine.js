@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, StyleSheet ,Alert} from "react-native";
+import { View, Text, ScrollView, StyleSheet, Alert } from "react-native";
 import { Icon, Card, Button } from "react-native-elements";
 import moment from "moment";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -100,6 +100,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
     paddingVertical: 8
-  },
-  
+  }
 });

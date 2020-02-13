@@ -24,8 +24,13 @@ export default class AssignedHires extends Component {
   constructor(props) {
     super(props);
   }
+  state = {
+    data: [],
+    modalVisible: false,
+    doc: ""
+  };
   async rejectData() {
-    //console.log("call reject");
+    console.log("call reject");
     firebase
       .firestore()
       .collection("hires")
@@ -33,12 +38,15 @@ export default class AssignedHires extends Component {
       .update({
         hireStatus: "pending"
       })
-      .then(() => alert("Successfully Reject Hire"))
+      .then(() => {
+        alert("Successfully Reject Hire");
+        this.removedata(this.state.doc.id);
+      })
       .catch(error => console.log(error));
   }
   async acceptHire() {
-    //console.log("call accept");
-    //console.log(this.state.doc.id);
+    console.log("call accept");
+    console.log(this.state.doc.id);
     firebase
       .firestore()
       .collection("hires")
@@ -46,15 +54,27 @@ export default class AssignedHires extends Component {
       .update({
         hireStatus: "ongoing"
       })
-      .then(() => alert("Successfully Accept Hire"))
+      .then(() => {
+        alert("Successfully Accept Hire");
+        this.removedata(this.state.doc.id);
+      })
       .catch(error => console.log(error));
   }
-  state = {
-    data: this.data.assignedhires,
-    modalVisible: false,
-    doc: ""
-  };
-  componentDidMount() {}
+  removedata(id) {
+    var data = this.state.data;
+    var index = data
+      .map(function(d) {
+        return d["id"];
+      })
+      .indexOf(id);
+    if (index > -1) {
+      data.splice(index, 1);
+    }
+    this.setState({ data: data });
+  }
+  componentDidMount() {
+    this.setState({ data: this.data.assignedhires });
+  }
   render() {
     return (
       <ScrollView>
@@ -70,7 +90,10 @@ export default class AssignedHires extends Component {
             >
               <TouchableOpacity
                 style={styles.listItem}
-                onPress={() => this.setState({ modalVisible: true, doc: u })}
+                onPress={() => {
+                  this.setState({ modalVisible: true, doc: u });
+                  console.log(this.state.doc);
+                }}
               >
                 <Icon
                   name="directions-car"
