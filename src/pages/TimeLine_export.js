@@ -79,7 +79,7 @@ export default class TimeLine extends Component {
       .doc(this.state.id)
       .update(timeline)
       .then(() => {
-        alert("Confrim!");
+        alert("Confirm!");
       })
       .catch(error => console.log(error));
   };
