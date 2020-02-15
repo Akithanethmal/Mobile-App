@@ -58,6 +58,7 @@ export default class AssignedHires extends Component {
     } else {
       timeline = {
         truckDispatched: "",
+        atContainerPickupLocation: "",
         inTransitOne: "",
         cargoLoaded: "",
         inTransittwo: "",

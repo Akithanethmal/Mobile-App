@@ -25,8 +25,9 @@ export default class TimeLine extends Component {
     truckDispatched: "",
     inTransitOne: "",
     cargoLoaded: "",
-    inTransittwo: "",
+    inTransitTwo: "",
     loadingPortReached: "",
+    atContainerPickupLocation: "",
     hireCompleted: ""
   };
   componentDidMount() {
@@ -44,6 +45,43 @@ export default class TimeLine extends Component {
         this.setState(timeline);
         console.log(this.state);
       });
+  };
+  timelineUpdate = async () => {
+    timeline = {
+      timeline: {
+        truckDispatched:
+          this.state.truckDispatched !== "" ? this.state.truckDispatched : "",
+        atContainerPickupLocation:
+          this.state.atContainerPickupLocation !== ""
+            ? this.state.atContainerPickupLocation
+            : "",
+        inTransitOne:
+          this.state.inTransitOne !== "" ? this.state.inTransitOne : "",
+        cargoLoaded:
+          this.state.cargoLoaded !== "" ? this.state.cargoLoaded : "",
+        inTransitTwo:
+          this.state.inTransitTwo !== "" ? this.state.inTransitTwo : "",
+        loadingPortReached:
+          this.state.loadingPortReached !== ""
+            ? this.state.loadingPortReached
+            : "",
+        hireCompleted:
+          this.state.hireCompleted !== "" ? this.state.hireCompleted : ""
+      }
+    };
+    console.log("Call");
+    console.log(this.data.ongoing);
+    console.log(this.state.id);
+    //console.log("truckDispatched");
+    firebase
+      .firestore()
+      .collection("hires")
+      .doc(this.state.id)
+      .update(timeline)
+      .then(() => {
+        alert("Confrim!");
+      })
+      .catch(error => console.log(error));
   };
 
   render() {
