@@ -8,7 +8,7 @@ import {
   Text,
   Image,
   ScrollView,
-  AsyncStorage,
+  AsyncStorage
 } from "react-native";
 import firebase from "../../config/Firebase";
 import moment from "moment";
@@ -156,7 +156,6 @@ export default class Dashboard extends Component {
             buttonStyle={styles.partyhardbutton}
             onPress={() => this.logout()}
           />
-          
         </Card>
       </ScrollView>
     );

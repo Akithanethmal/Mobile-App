@@ -13,10 +13,38 @@ export default class TimeLine extends Component {
       flex: 1
     }
   };
+  data = this.props.navigation.state.params;
   constructor(props) {
     super(props);
     this.state = {};
   }
+  state = {
+    id: "",
+    modalVisible: false,
+    doc: "",
+    truckDispatched: "",
+    inTransitOne: "",
+    cargoLoaded: "",
+    inTransittwo: "",
+    loadingPortReached: "",
+    hireCompleted: ""
+  };
+  componentDidMount() {
+    this.setState({ id: this.data.ongoing }, () => this.getCurrentTimeline());
+  }
+  getCurrentTimeline = () => {
+    firebase
+      .firestore()
+      .collection("hires")
+      .doc(this.state.id)
+      .get()
+      .then(snapshot => {
+        console.log(snapshot.data().timeline);
+        timeline = snapshot.data().timeline;
+        this.setState(timeline);
+        console.log(this.state);
+      });
+  };
 
   render() {
     return (

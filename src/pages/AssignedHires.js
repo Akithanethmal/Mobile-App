@@ -46,16 +46,29 @@ export default class AssignedHires extends Component {
       .catch(error => console.log(error));
   }
   async acceptHire() {
-    timeline = {
-      truckDispatched: "",
-      atPickupLocation: "",
-      cargoLocation: "",
-      inTransit: "",
-      destinationReached: "",
-      hireCompleted: ""
-    };
+    if (this.state.doc.hireType == "import") {
+      timeline = {
+        truckDispatched: "",
+        atPickupLocation: "",
+        cargoLocation: "",
+        inTransit: "",
+        destinationReached: "",
+        hireCompleted: ""
+      };
+    } else {
+      timeline = {
+        truckDispatched: "",
+        inTransitOne: "",
+        cargoLoaded: "",
+        inTransittwo: "",
+        loadingPortReached: "",
+        hireCompleted: ""
+      };
+    }
+
     console.log("call accept");
     console.log(this.state.doc.id);
+    console.log(this.state.doc.hireType);
     firebase
       .firestore()
       .collection("hires")
@@ -67,6 +80,7 @@ export default class AssignedHires extends Component {
       .then(() => {
         alert("Successfully Accept Hire");
         this.removedata(this.state.doc.id);
+
         this.props.navigation.goBack();
       })
       .catch(error => console.log(error));
@@ -108,6 +122,7 @@ export default class AssignedHires extends Component {
               >
                 <Icon
                   name="directions-car"
+                  ff
                   type="material"
                   color="#666666"
                   size={30}

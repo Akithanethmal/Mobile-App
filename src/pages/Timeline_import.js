@@ -80,7 +80,7 @@ export default class Timeline_import extends Component {
       .doc(this.state.id)
       .update(timeline)
       .then(() => {
-        alert("Comfrim!");
+        alert("Confrim!");
       })
       .catch(error => console.log(error));
   };
