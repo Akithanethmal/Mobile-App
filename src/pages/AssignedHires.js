@@ -61,15 +61,15 @@ export default class AssignedHires extends Component {
         atContainerPickupLocation: "",
         inTransitOne: "",
         cargoLoaded: "",
-        inTransittwo: "",
+        inTransitTwo: "",
         loadingPortReached: "",
         hireCompleted: ""
       };
     }
 
-    console.log("call accept");
-    console.log(this.state.doc.id);
-    console.log(this.state.doc.hireType);
+    // console.log("call accept");
+    // console.log(this.state.doc.id);
+    // console.log(this.state.doc.hireType);
     firebase
       .firestore()
       .collection("hires")
@@ -123,7 +123,6 @@ export default class AssignedHires extends Component {
               >
                 <Icon
                   name="directions-car"
-                  ff
                   type="material"
                   color="#666666"
                   size={30}

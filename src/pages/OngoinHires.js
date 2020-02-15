@@ -30,34 +30,7 @@ export default class OngoinHires extends Component {
     modalVisible: false,
     doc: ""
   };
-  // async timelineImport() {
-  //   timeline = {
-  //     truckDispatched: "",
-  //     atPickupLocation: "",
-  //     cargoLocation: "",
-  //     inTransit: "",
-  //     destinationReached: "",
-  //     hireCompleted: ""
-  //   };
-  //   console.log("call accept");
-  //   console.log(this.state.doc.id);
-  //   firebase
-  //     .firestore()
-  //     .collection("hires")
-  //     .doc(this.state.doc.id)
-  //     .update({
-  //       // hireStatus: "ongoing",
-  //       timeline: timeline
-  //     })
-  //     .then(() => {
-  //       alert("Successfully Accept Hire");
-  //       this.removedata(this.state.doc.id);
-  //       this.props.navigation.goBack();
-  //     })
-  //     .catch(error => console.log(error));
-  // }
-  
-  //componentDidMount() {}
+
   render() {
     return (
       <ScrollView>
@@ -195,7 +168,7 @@ export default class OngoinHires extends Component {
                 type="outline"
                 title="View Timeline"
                 ContainerssStyle={{ borderColor: "#00f" }}
-                onPress={() =>{
+                onPress={() => {
                   this.setState({ modalVisible: false });
                   // this.timelineImport();
                   //console.log(this.state.doc.hireType);

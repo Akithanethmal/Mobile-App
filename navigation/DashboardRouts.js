@@ -24,11 +24,11 @@ const DashboardNavigator = createStackNavigator({
   OngoinHires: {
     screen: OngoinHires
   },
+  import: {
+    screen: Timeline_import
+  },
   export: {
     screen: TimeLine_export
-  },
-  import: {
-    screen:Timeline_import
   },
 
   initialRouteName: "Dashboard"

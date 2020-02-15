@@ -16,7 +16,6 @@ export default class TimeLine extends Component {
   data = this.props.navigation.state.params;
   constructor(props) {
     super(props);
-    this.state = {};
   }
   state = {
     id: "",
@@ -40,13 +39,14 @@ export default class TimeLine extends Component {
       .doc(this.state.id)
       .get()
       .then(snapshot => {
-        console.log(snapshot.data().timeline);
+        //console.log(snapshot.data().timeline);
         timeline = snapshot.data().timeline;
         this.setState(timeline);
-        console.log(this.state);
+        //console.log(this.state);
       });
   };
   timelineUpdate = async () => {
+    //console.log("call");
     timeline = {
       timeline: {
         truckDispatched:
@@ -69,9 +69,9 @@ export default class TimeLine extends Component {
           this.state.hireCompleted !== "" ? this.state.hireCompleted : ""
       }
     };
-    console.log("Call");
-    console.log(this.data.ongoing);
-    console.log(this.state.id);
+    // console.log("Call");
+    // console.log(this.data.ongoing);
+    // console.log(this.state.id);
     //console.log("truckDispatched");
     firebase
       .firestore()
@@ -90,27 +90,38 @@ export default class TimeLine extends Component {
         <Card containerStyle={styles.cardContainer}>
           <View style={styles.subContainer}>
             <TouchableOpacity
-              style={styles.button}
+              style={
+                this.state.hireCompleted === "" ? styles.button : styles.active
+              }
               onPress={() => {
                 if (
-                  this.state.atContainerPickupLocation != "" &&
-                  this.state.truckDispatched != "" &&
-                  this.state.inTransitOne != "" &&
-                  this.setState.cargoLoaded != "" &&
-                  this.setState.inTransitTwo != "" &&
-                  this.setState.loadingPortReached != "" &&
-                  this.setState.hireCompleted == ""
+                  this.state.truckDispatched !== "" &&
+                  this.state.atContainerPickupLocation !== "" &&
+                  this.state.inTransitOne !== "" &&
+                  this.state.cargoLoaded !== "" &&
+                  this.state.inTransitTwo !== "" &&
+                  this.state.loadingPortReached !== "" &&
+                  this.state.hireCompleted === ""
                 ) {
-                  this.setState({ hireCompleted: Date.now() }, () =>
-                    this.timelineUpdate()
+                  this.setState(
+                    { hireCompleted: Date.now() },
+                    () => this.timelineUpdate(),
+                    firebase
+                      .firestore()
+                      .collection("hires")
+                      .doc(this.state.id)
+                      .update({
+                        hireStatus: "completed"
+                      })
                   );
+                  this.props.navigation.goBack();
                 } else if (
-                  this.state.truckDispatched == "" ||
-                  this.state.atContainerPickupLocation == "" ||
-                  this.state.inTransitOne == "" ||
-                  this.setState.cargoLoaded == "" ||
-                  this.setState.inTransitTwo == "" ||
-                  this.setState.loadingPortReached == ""
+                  this.state.truckDispatched === "" ||
+                  this.state.atContainerPickupLocation === "" ||
+                  this.state.inTransitOne === "" ||
+                  this.state.cargoLoaded === "" ||
+                  this.state.inTransitTwo === "" ||
+                  this.state.loadingPortReached === ""
                 ) {
                   alert("Task Schedule Error!");
                 } else {
@@ -121,25 +132,29 @@ export default class TimeLine extends Component {
               <Text style={styles.buttonText}>Hire Completed</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
+              style={
+                this.state.loadingPortReached === ""
+                  ? styles.button
+                  : styles.active
+              }
               onPress={() => {
                 if (
-                  this.state.atContainerPickupLocation != "" &&
-                  this.state.truckDispatched != "" &&
-                  this.state.inTransitOne != "" &&
-                  this.setState.cargoLoaded != "" &&
-                  this.setState.inTransitTwo != "" &&
-                  this.setState.loadingPortReached == ""
+                  this.state.truckDispatched !== "" &&
+                  this.state.atContainerPickupLocation !== "" &&
+                  this.state.inTransitOne !== "" &&
+                  this.state.cargoLoaded !== "" &&
+                  this.state.inTransitTwo !== "" &&
+                  this.state.loadingPortReached === ""
                 ) {
                   this.setState({ loadingPortReached: Date.now() }, () =>
                     this.timelineUpdate()
                   );
                 } else if (
-                  this.state.truckDispatched == "" ||
-                  this.state.atContainerPickupLocation == "" ||
-                  this.state.inTransitOne == "" ||
-                  this.setState.cargoLoaded == "" ||
-                  this.setState.inTransitTwo == ""
+                  this.state.truckDispatched === "" ||
+                  this.state.atContainerPickupLocation === "" ||
+                  this.state.inTransitOne === "" ||
+                  this.state.cargoLoaded === "" ||
+                  this.state.inTransitTwo === ""
                 ) {
                   alert("Task Schedule Error!");
                 } else {
@@ -155,20 +170,20 @@ export default class TimeLine extends Component {
               }
               onPress={() => {
                 if (
-                  this.state.atContainerPickupLocation != "" &&
-                  this.state.truckDispatched != "" &&
-                  this.state.inTransitOne != "" &&
-                  this.setState.cargoLoaded != "" &&
-                  this.setState.inTransitTwo == ""
+                  this.state.truckDispatched !== "" &&
+                  this.state.atContainerPickupLocation !== "" &&
+                  this.state.inTransitOne !== "" &&
+                  this.state.cargoLoaded !== "" &&
+                  this.state.inTransitTwo === ""
                 ) {
                   this.setState({ inTransitTwo: Date.now() }, () =>
                     this.timelineUpdate()
                   );
                 } else if (
-                  this.state.truckDispatched == "" ||
-                  this.state.atContainerPickupLocation == "" ||
-                  this.state.inTransitOne == "" ||
-                  this.setState.cargoLoaded == ""
+                  this.state.truckDispatched === "" ||
+                  this.state.atContainerPickupLocation === "" ||
+                  this.state.inTransitOne === "" ||
+                  this.state.cargoLoaded === ""
                 ) {
                   alert("Task Schedule Error!");
                 } else {
@@ -179,21 +194,23 @@ export default class TimeLine extends Component {
               <Text style={styles.buttonText}>In Transit</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
+              style={
+                this.state.cargoLoaded === "" ? styles.button : styles.active
+              }
               onPress={() => {
                 if (
-                  this.state.atContainerPickupLocation != "" &&
-                  this.state.truckDispatched != "" &&
-                  this.state.inTransitOne != "" &&
-                  this.setState.cargoLoaded == ""
+                  this.state.truckDispatched !== "" &&
+                  this.state.atContainerPickupLocation !== "" &&
+                  this.state.inTransitOne !== "" &&
+                  this.state.cargoLoaded === ""
                 ) {
                   this.setState({ cargoLoaded: Date.now() }, () =>
                     this.timelineUpdate()
                   );
                 } else if (
-                  this.state.truckDispatched == "" ||
-                  this.state.atContainerPickupLocation == "" ||
-                  this.state.inTransitOne == ""
+                  this.state.truckDispatched === "" ||
+                  this.state.atContainerPickupLocation === "" ||
+                  this.state.inTransitOne === ""
                 ) {
                   alert("Task Schedule Error!");
                 } else {
