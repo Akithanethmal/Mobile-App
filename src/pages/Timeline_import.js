@@ -80,7 +80,7 @@ export default class Timeline_import extends Component {
       .doc(this.state.id)
       .update(timeline)
       .then(() => {
-        alert("Truck Dispatched Comfrim!");
+        alert("Comfrim!");
       })
       .catch(error => console.log(error));
   };
@@ -92,15 +92,37 @@ export default class Timeline_import extends Component {
           <View style={styles.subContainer}>
             <TouchableOpacity
               style={
-                this.state.hireCompleted === ""
-                  ? styles.button
-                  : styles.active
+                this.state.hireCompleted === "" ? styles.button : styles.active
               }
               onPress={() => {
-                if (this.state.hireCompleted == "") {
-                  this.setState({ hireCompleted: Date.now() }, () =>
-                    this.timelineUpdate()
+                if (
+                  this.state.hireCompleted == "" &&
+                  this.state.destinationReached != "" &&
+                  this.state.inTransit != "" &&
+                  this.state.truckDispatched != "" &&
+                  this.state.atPickupLocation != "" &&
+                  this.state.cargoLocation != ""
+                ) {
+                  this.setState(
+                    { hireCompleted: Date.now() },
+                    () => this.timelineUpdate(),
+                    firebase
+                      .firestore()
+                      .collection("hires")
+                      .doc(this.state.id)
+                      .update({
+                        hireStatus: "completed"
+                      })
                   );
+                  this.props.navigation.goBack();
+                } else if (
+                  this.state.destinationReached == "" ||
+                  this.state.inTransit == "" ||
+                  this.state.truckDispatched == "" ||
+                  this.state.atPickupLocation == "" ||
+                  this.state.cargoLocation == ""
+                ) {
+                  alert("Task Schedule Error");
                 } else {
                   alert("Completed!");
                 }
@@ -115,12 +137,25 @@ export default class Timeline_import extends Component {
                   : styles.active
               }
               onPress={() => {
-                if (this.state.destinationReached == "") {
+                if (
+                  this.state.destinationReached == "" &&
+                  this.state.inTransit != "" &&
+                  this.state.truckDispatched != "" &&
+                  this.state.atPickupLocation != "" &&
+                  this.state.cargoLocation != ""
+                ) {
                   this.setState({ destinationReached: Date.now() }, () =>
                     this.timelineUpdate()
                   );
+                } else if (
+                  this.state.inTransit == "" ||
+                  this.state.truckDispatched == "" ||
+                  this.state.atPickupLocation == "" ||
+                  this.state.cargoLocation != ""
+                ) {
+                  alert("Task Schedule Error");
                 } else {
-                  alert("Completed!");
+                  alert("Alraedy Completed!");
                 }
               }}
             >
@@ -131,12 +166,23 @@ export default class Timeline_import extends Component {
                 this.state.inTransit === "" ? styles.button : styles.active
               }
               onPress={() => {
-                if (this.state.inTransit == "") {
+                if (
+                  this.state.inTransit == "" &&
+                  this.state.truckDispatched != "" &&
+                  this.state.atPickupLocation != "" &&
+                  this.state.cargoLocation != ""
+                ) {
                   this.setState({ inTransit: Date.now() }, () =>
                     this.timelineUpdate()
                   );
+                } else if (
+                  this.state.truckDispatched == "" ||
+                  this.state.atPickupLocation == "" ||
+                  this.state.cargoLocation == ""
+                ) {
+                  alert("Task Schedule Error");
                 } else {
-                  alert("Completed!");
+                  alert("Alraedy Completed!");
                 }
               }}
             >
@@ -147,12 +193,21 @@ export default class Timeline_import extends Component {
                 this.state.cargoLocation === "" ? styles.button : styles.active
               }
               onPress={() => {
-                if (this.state.cargoLocation == "") {
+                if (
+                  this.state.cargoLocation == "" &&
+                  this.state.truckDispatched != "" &&
+                  this.state.atPickupLocation != ""
+                ) {
                   this.setState({ cargoLocation: Date.now() }, () =>
                     this.timelineUpdate()
                   );
+                } else if (
+                  this.state.truckDispatched == "" ||
+                  this.state.atPickupLocation == ""
+                ) {
+                  alert("Task Schedule Error!");
                 } else {
-                  alert("Completed!");
+                  alert("Alraedy Completed!");
                 }
               }}
             >
@@ -165,15 +220,17 @@ export default class Timeline_import extends Component {
                   : styles.active
               }
               onPress={() => {
-                if (this.state.atPickupLocation == "" && this.state.truckDispatched!="") {
+                if (
+                  this.state.atPickupLocation == "" &&
+                  this.state.truckDispatched != ""
+                ) {
                   this.setState({ atPickupLocation: Date.now() }, () =>
                     this.timelineUpdate()
                   );
-                } else if (this.state.truckDispatched=="") {
-                  alert("Task schedule error!")
-                }
-                else{
-                  alert("Completed!");
+                } else if (this.state.truckDispatched == "") {
+                  alert("Task Schedule Error!");
+                } else {
+                  alert("Alraedy Completed!");
                 }
               }}
             >
@@ -191,7 +248,7 @@ export default class Timeline_import extends Component {
                     this.timelineUpdate()
                   );
                 } else {
-                  alert("completed!");
+                  alert("Alraedy Completed!");
                 }
               }}
             >

@@ -43,6 +43,7 @@ export default class Upcominghires extends Component {
       .then(() => {
         alert("Successfully Reject Hire");
         this.removedata(this.state.doc.id);
+        this.props.navigation.goBack();
       })
       .catch(error => console.log(error));
   }

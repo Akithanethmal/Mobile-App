@@ -41,17 +41,18 @@ export default class AssignedHires extends Component {
       .then(() => {
         alert("Successfully Reject Hire");
         this.removedata(this.state.doc.id);
+        this.props.navigation.goBack();
       })
       .catch(error => console.log(error));
   }
   async acceptHire() {
     timeline = {
-        truckDispatched: this.state.truckDispatched ? "time" : "",
-        atPickupLocation:this.state.truckDispatched ?"":"",
-        cargoLocation: "",
-        inTransit: "",
-        destinationReached: "",
-        hireCompleted: ""
+      truckDispatched: "",
+      atPickupLocation: "",
+      cargoLocation: "",
+      inTransit: "",
+      destinationReached: "",
+      hireCompleted: ""
     };
     console.log("call accept");
     console.log(this.state.doc.id);
@@ -61,11 +62,12 @@ export default class AssignedHires extends Component {
       .doc(this.state.doc.id)
       .update({
         hireStatus: "ongoing",
-        timeline:timeline,
+        timeline: timeline
       })
       .then(() => {
         alert("Successfully Accept Hire");
         this.removedata(this.state.doc.id);
+        this.props.navigation.goBack();
       })
       .catch(error => console.log(error));
   }

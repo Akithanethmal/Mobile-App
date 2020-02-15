@@ -170,8 +170,9 @@ export default class OngoinHires extends Component {
                 ContainerssStyle={{ borderColor: "#00f" }}
                 onPress={() => {
                   this.setState({ modalVisible: false });
-                  console.log(this.state.doc.hireType);
-                  // this.props.navigation.goBack()
+                  //console.log(this.state.doc.hireType);
+                  this.props.navigation.goBack()
+                  console.log(this.state.doc.id);
                   this.props.navigation.navigate(this.state.doc.hireType, {
                     ongoing: this.state.doc.id
                   });
