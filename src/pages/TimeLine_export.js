@@ -91,45 +91,183 @@ export default class TimeLine extends Component {
           <View style={styles.subContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Do")}
+              onPress={() => {
+                if (
+                  this.state.atContainerPickupLocation != "" &&
+                  this.state.truckDispatched != "" &&
+                  this.state.inTransitOne != "" &&
+                  this.setState.cargoLoaded != "" &&
+                  this.setState.inTransitTwo != "" &&
+                  this.setState.loadingPortReached != "" &&
+                  this.setState.hireCompleted == ""
+                ) {
+                  this.setState({ hireCompleted: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else if (
+                  this.state.truckDispatched == "" ||
+                  this.state.atContainerPickupLocation == "" ||
+                  this.state.inTransitOne == "" ||
+                  this.setState.cargoLoaded == "" ||
+                  this.setState.inTransitTwo == "" ||
+                  this.setState.loadingPortReached == ""
+                ) {
+                  alert("Task Schedule Error!");
+                } else {
+                  alert("Alraedy Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>Hire Completed</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Do")}
+              onPress={() => {
+                if (
+                  this.state.atContainerPickupLocation != "" &&
+                  this.state.truckDispatched != "" &&
+                  this.state.inTransitOne != "" &&
+                  this.setState.cargoLoaded != "" &&
+                  this.setState.inTransitTwo != "" &&
+                  this.setState.loadingPortReached == ""
+                ) {
+                  this.setState({ loadingPortReached: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else if (
+                  this.state.truckDispatched == "" ||
+                  this.state.atContainerPickupLocation == "" ||
+                  this.state.inTransitOne == "" ||
+                  this.setState.cargoLoaded == "" ||
+                  this.setState.inTransitTwo == ""
+                ) {
+                  alert("Task Schedule Error!");
+                } else {
+                  alert("Alraedy Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>Loading Port Reached</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("Do")}
+              style={
+                this.state.inTransitTwo === "" ? styles.button : styles.active
+              }
+              onPress={() => {
+                if (
+                  this.state.atContainerPickupLocation != "" &&
+                  this.state.truckDispatched != "" &&
+                  this.state.inTransitOne != "" &&
+                  this.setState.cargoLoaded != "" &&
+                  this.setState.inTransitTwo == ""
+                ) {
+                  this.setState({ inTransitTwo: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else if (
+                  this.state.truckDispatched == "" ||
+                  this.state.atContainerPickupLocation == "" ||
+                  this.state.inTransitOne == "" ||
+                  this.setState.cargoLoaded == ""
+                ) {
+                  alert("Task Schedule Error!");
+                } else {
+                  alert("Alraedy Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>In Transit</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Do")}
+              onPress={() => {
+                if (
+                  this.state.atContainerPickupLocation != "" &&
+                  this.state.truckDispatched != "" &&
+                  this.state.inTransitOne != "" &&
+                  this.setState.cargoLoaded == ""
+                ) {
+                  this.setState({ cargoLoaded: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else if (
+                  this.state.truckDispatched == "" ||
+                  this.state.atContainerPickupLocation == "" ||
+                  this.state.inTransitOne == ""
+                ) {
+                  alert("Task Schedule Error!");
+                } else {
+                  alert("Alraedy Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>Cargo Loaded</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("Do")}
+              style={
+                this.state.inTransitOne === "" ? styles.button : styles.active
+              }
+              onPress={() => {
+                if (
+                  this.state.atContainerPickupLocation != "" &&
+                  this.state.truckDispatched != "" &&
+                  this.state.inTransitOne == ""
+                ) {
+                  this.setState({ inTransitOne: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else if (
+                  this.state.truckDispatched == "" ||
+                  this.state.atContainerPickupLocation == ""
+                ) {
+                  alert("Task Schedule Error!");
+                } else {
+                  alert("Alraedy Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>In Transit</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("Do")}
+              style={
+                this.state.atContainerPickupLocation === ""
+                  ? styles.button
+                  : styles.active
+              }
+              onPress={() => {
+                if (
+                  this.state.truckDispatched != "" &&
+                  this.state.atContainerPickupLocation == ""
+                ) {
+                  this.setState({ atContainerPickupLocation: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else if (this.state.truckDispatched == "") {
+                  alert("Task Schedule Error!");
+                } else {
+                  alert("Already Completed");
+                }
+              }}
             >
               <Text style={styles.buttonText}>
                 At Container Pickup Location
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("Do")}
+              style={
+                this.state.truckDispatched === ""
+                  ? styles.button
+                  : styles.active
+              }
+              onPress={() => {
+                if (this.state.truckDispatched == "") {
+                  this.setState({ truckDispatched: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else {
+                  alert("Already Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>Truck Dispatched</Text>
             </TouchableOpacity>
@@ -180,5 +318,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
     paddingVertical: 8
+  },
+  active: {
+    marginTop: 7,
+    marginBottom: 7,
+    paddingVertical: 3,
+    alignItems: "center",
+    backgroundColor: "transparent",
+    borderColor: "black",
+    borderWidth: 2,
+    borderRadius: 5,
+    width: "100%",
+    height: 50,
+    borderColor: "#f00"
   }
 });

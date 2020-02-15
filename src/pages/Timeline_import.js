@@ -244,7 +244,7 @@ export default class Timeline_import extends Component {
               }
               onPress={() => {
                 if (this.state.truckDispatched === "") {
-                  this.setState({ truckDispatched: Date.now() }, () =>
+                  this.setState({ truckDispatched: new Date() }, () =>
                     this.timelineUpdate()
                   );
                 } else {
