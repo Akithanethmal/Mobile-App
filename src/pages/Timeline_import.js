@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, StyleSheet, Alert, AsyncStorage } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Alert,
+  AsyncStorage
+} from "react-native";
 import { Icon, Card, Button } from "react-native-elements";
 import moment from "moment";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -29,31 +36,38 @@ export default class Timeline_import extends Component {
     hireCompleted: ""
   };
   componentDidMount() {
-    this.setState({ id: this.data.ongoing },()=>this.getCurrentTimeline());
+    this.setState({ id: this.data.ongoing }, () => this.getCurrentTimeline());
   }
-  getCurrentTimeline=()=>{
-    firebase.firestore()
-    .collection("hires")
-    .doc(this.state.id)
-    .get()
-    .then(snapshot=>{
-      console.log(snapshot.data().timeline)
-      timeline = snapshot.data().timeline;
-      this.setState(timeline)
-      console.log(this.state)
-    })
-  }
+  getCurrentTimeline = () => {
+    firebase
+      .firestore()
+      .collection("hires")
+      .doc(this.state.id)
+      .get()
+      .then(snapshot => {
+        console.log(snapshot.data().timeline);
+        timeline = snapshot.data().timeline;
+        this.setState(timeline);
+        console.log(this.state);
+      });
+  };
 
-  
-  truckDispatched = async()=> {
+  timelineUpdate = async () => {
     timeline = {
-      timeline:{
-        truckDispatched: this.state.truckDispatched!=="" ? this.state.truckDispatched : "",
-        atPickupLocation:this.state.truckDispatched ?"":"",
-        cargoLocation: "",
-        inTransit: "",
-        destinationReached: "",
-        hireCompleted: ""
+      timeline: {
+        truckDispatched:
+          this.state.truckDispatched !== "" ? this.state.truckDispatched : "",
+        atPickupLocation:
+          this.state.atPickupLocation !== "" ? this.state.atPickupLocation : "",
+        cargoLocation:
+          this.state.cargoLocation !== "" ? this.state.cargoLocation : "",
+        inTransit: this.state.inTransit !== "" ? this.state.inTransit : "",
+        destinationReached:
+          this.state.destinationReached !== ""
+            ? this.state.destinationReached
+            : "",
+        hireCompleted:
+          this.state.hireCompleted !== "" ? this.state.hireCompleted : ""
       }
     };
     console.log("Call");
@@ -69,7 +83,7 @@ export default class Timeline_import extends Component {
         alert("Truck Dispatched Comfrim!");
       })
       .catch(error => console.log(error));
-  }
+  };
 
   render() {
     return (
@@ -77,45 +91,109 @@ export default class Timeline_import extends Component {
         <Card containerStyle={styles.cardContainer}>
           <View style={styles.subContainer}>
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("yt")}
+              style={
+                this.state.hireCompleted === ""
+                  ? styles.button
+                  : styles.active
+              }
+              onPress={() => {
+                if (this.state.hireCompleted == "") {
+                  this.setState({ hireCompleted: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else {
+                  alert("Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>Hire Completed</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("hb")}
+              style={
+                this.state.destinationReached === ""
+                  ? styles.button
+                  : styles.active
+              }
+              onPress={() => {
+                if (this.state.destinationReached == "") {
+                  this.setState({ destinationReached: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else {
+                  alert("Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>Destination reached</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("kj")}
+              style={
+                this.state.inTransit === "" ? styles.button : styles.active
+              }
+              onPress={() => {
+                if (this.state.inTransit == "") {
+                  this.setState({ inTransit: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else {
+                  alert("Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>In Transit</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("hu")}
+              style={
+                this.state.cargoLocation === "" ? styles.button : styles.active
+              }
+              onPress={() => {
+                if (this.state.cargoLocation == "") {
+                  this.setState({ cargoLocation: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else {
+                  alert("Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>Cargo Location</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("jnij")}
+              style={
+                this.state.atPickupLocation === ""
+                  ? styles.button
+                  : styles.active
+              }
+              onPress={() => {
+                if (this.state.atPickupLocation == "" && this.state.truckDispatched!="") {
+                  this.setState({ atPickupLocation: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else if (this.state.truckDispatched=="") {
+                  alert("Task schedule error!")
+                }
+                else{
+                  alert("Completed!");
+                }
+              }}
             >
               <Text style={styles.buttonText}>At Pickup Location</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={this.state.truckDispatched===""?styles.button:styles.active}
+              style={
+                this.state.truckDispatched === ""
+                  ? styles.button
+                  : styles.active
+              }
               onPress={() => {
-                if(this.state.truckDispatched===""){
-                this.setState({truckDispatched:Date.now()},()=>this.truckDispatched());
+                if (this.state.truckDispatched === "") {
+                  this.setState({ truckDispatched: Date.now() }, () =>
+                    this.timelineUpdate()
+                  );
+                } else {
+                  alert("completed!");
                 }
-                else{
-                  alert('completed!')
-                }
-               }}
+              }}
             >
               <Text style={styles.buttonText}>Truck Dispatched</Text>
             </TouchableOpacity>
@@ -167,7 +245,7 @@ const styles = StyleSheet.create({
     color: "black",
     paddingVertical: 8
   },
-  active:{
+  active: {
     marginTop: 7,
     marginBottom: 7,
     paddingVertical: 3,
@@ -178,6 +256,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: "100%",
     height: 50,
-    borderColor: '#f00',
+    borderColor: "#f00"
   }
 });
