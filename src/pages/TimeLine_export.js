@@ -25,37 +25,37 @@ export default class TimeLine extends Component {
           <View style={styles.subContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
+              onPress={() => Alert.alert("Do")}
             >
               <Text style={styles.buttonText}>Hire Completed</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
+              onPress={() => Alert.alert("Do")}
             >
               <Text style={styles.buttonText}>Loading Port Reached</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
+              onPress={() => Alert.alert("Do")}
             >
               <Text style={styles.buttonText}>In Transit</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
+              onPress={() => Alert.alert("Do")}
             >
               <Text style={styles.buttonText}>Cargo Loaded</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
+              onPress={() => Alert.alert("Do")}
             >
               <Text style={styles.buttonText}>In Transit</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
+              onPress={() => Alert.alert("Do")}
             >
               <Text style={styles.buttonText}>
                 At Container Pickup Location
@@ -63,7 +63,7 @@ export default class TimeLine extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => Alert.alert("Dont Press bitch")}
+              onPress={() => Alert.alert("Do")}
             >
               <Text style={styles.buttonText}>Truck Dispatched</Text>
             </TouchableOpacity>

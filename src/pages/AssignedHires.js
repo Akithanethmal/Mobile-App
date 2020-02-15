@@ -45,6 +45,14 @@ export default class AssignedHires extends Component {
       .catch(error => console.log(error));
   }
   async acceptHire() {
+    timeline = {
+        truckDispatched: this.state.truckDispatched ? "time" : "",
+        atPickupLocation:this.state.truckDispatched ?"":"",
+        cargoLocation: "",
+        inTransit: "",
+        destinationReached: "",
+        hireCompleted: ""
+    };
     console.log("call accept");
     console.log(this.state.doc.id);
     firebase
@@ -52,7 +60,8 @@ export default class AssignedHires extends Component {
       .collection("hires")
       .doc(this.state.doc.id)
       .update({
-        hireStatus: "ongoing"
+        hireStatus: "ongoing",
+        timeline:timeline,
       })
       .then(() => {
         alert("Successfully Accept Hire");

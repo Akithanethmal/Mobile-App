@@ -24,23 +24,13 @@ export default class OngoinHires extends Component {
   constructor(props) {
     super(props);
   }
-  async updateData() {
-    const id = await AsyncStorage.getItem("id");
-    const db = firebase.firestore();
-    db.collection("hires")
-      .doc(id)
-      .update({
-        hireStatus: "request"
-      })
-      .then(() => alert("Don't press bitch"))
-      .catch(console.log);
-  }
+
   state = {
     data: this.data.ongoing,
     modalVisible: false,
     doc: ""
   };
-  componentDidMount() {}
+  //componentDidMount() {}
   render() {
     return (
       <ScrollView>
@@ -180,8 +170,11 @@ export default class OngoinHires extends Component {
                 ContainerssStyle={{ borderColor: "#00f" }}
                 onPress={() => {
                   this.setState({ modalVisible: false });
-                  {}
-                  this.props.navigation.navigate(this.state.doc.hireType==='import' ? 'Timeline_export' : 'Timeline_import');
+                  console.log(this.state.doc.hireType);
+                  // this.props.navigation.goBack()
+                  this.props.navigation.navigate(this.state.doc.hireType, {
+                    ongoing: this.state.doc.id
+                  });
                 }}
               />
             </View>

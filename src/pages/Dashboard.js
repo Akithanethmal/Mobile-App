@@ -8,7 +8,7 @@ import {
   Text,
   Image,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
 } from "react-native";
 import firebase from "../../config/Firebase";
 import moment from "moment";
@@ -63,7 +63,7 @@ export default class Dashboard extends Component {
           var id = { id: doc.id };
           var data = doc.data();
           var merged = { ...data, ...id };
-          console.log(pickupdate + today);
+          //console.log(pickupdate + today);
           if (doc.data().hireStatus === "driverPending") {
             var joined = this.state.assignedhires.concat(merged);
             this.setState({ assignedhires: joined });
@@ -145,7 +145,7 @@ export default class Dashboard extends Component {
                 });
               }}
             >
-              <Text style={styles.buttonText}>ONGOIN HIRES</Text>
+              <Text style={styles.buttonText}>ONGOING HIRES</Text>
             </TouchableOpacity>
           </View>
 
@@ -156,6 +156,7 @@ export default class Dashboard extends Component {
             buttonStyle={styles.partyhardbutton}
             onPress={() => this.logout()}
           />
+          
         </Card>
       </ScrollView>
     );

@@ -5,7 +5,8 @@ import AssignedHires from "../src/pages/AssignedHires";
 import UpcomingHires from "../src/pages/UpcomingHires";
 import PastHires from "../src/pages/PastHires";
 import OngoinHires from "../src/pages/OngoinHires";
-import OngoinRouts from './OngoinRouts';
+import TimeLine_export from "../src/pages/TimeLine_export";
+import Timeline_import from "../src/pages/Timeline_import";
 
 const DashboardNavigator = createStackNavigator({
   Dashboard: {
@@ -23,12 +24,12 @@ const DashboardNavigator = createStackNavigator({
   OngoinHires: {
     screen: OngoinHires
   },
-  OngoinRouts: {
-    screen: OngoinRouts,
-    navigationOptions: () => ({
-      header:null
-    })
-},
+  export: {
+    screen: TimeLine_export
+  },
+  import: {
+    screen:Timeline_import
+  },
 
   initialRouteName: "Dashboard"
 });
