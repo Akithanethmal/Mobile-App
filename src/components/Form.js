@@ -23,8 +23,9 @@ export default class Form extends Component {
     firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(user => {
+      .then(async user => {
         this.getUserData(user.user.uid);
+        await AsyncStorage.setItem("id", user.user.uid);
       })
       .catch(error => {
         alert(error);

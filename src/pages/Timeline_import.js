@@ -28,12 +28,12 @@ export default class Timeline_import extends Component {
     id: "",
     modalVisible: false,
     doc: "",
-    truckDispatched: "",
-    atPickupLocation: "",
-    cargoLoaded: "",
-    inTransit: "",
-    destinationReached: "",
-    hireCompleted: ""
+    // truckDispatched: "",
+    // atPickupLocation: "",
+    // cargoLoaded: "",
+    // inTransit: "",
+    // destinationReached: "",
+    // hireCompleted: ""
   };
   componentDidMount() {
     this.setState({ id: this.data.ongoing }, () => this.getCurrentTimeline());
@@ -53,23 +53,23 @@ export default class Timeline_import extends Component {
   };
 
   timelineUpdate = async () => {
-    timeline = {
-      timeline: {
-        truckDispatched:
-          this.state.truckDispatched !== "" ? this.state.truckDispatched : "",
-        atPickupLocation:
-          this.state.atPickupLocation !== "" ? this.state.atPickupLocation : "",
-        cargoLoaded:
-          this.state.cargoLoaded !== "" ? this.state.cargoLoaded : "",
-        inTransit: this.state.inTransit !== "" ? this.state.inTransit : "",
-        destinationReached:
-          this.state.destinationReached !== ""
-            ? this.state.destinationReached
-            : "",
-        hireCompleted:
-          this.state.hireCompleted !== "" ? this.state.hireCompleted : ""
-      }
-    };
+    // timeline = {
+    //   timeline: {
+    //     truckDispatched:
+    //       this.state.truckDispatched !== "" ? this.state.truckDispatched : "",
+    //     atPickupLocation:
+    //       this.state.atPickupLocation !== "" ? this.state.atPickupLocation : "",
+    //     cargoLoaded:
+    //       this.state.cargoLoaded !== "" ? this.state.cargoLoaded : "",
+    //     inTransit: this.state.inTransit !== "" ? this.state.inTransit : "",
+    //     destinationReached:
+    //       this.state.destinationReached !== ""
+    //         ? this.state.destinationReached
+    //         : "",
+    //     hireCompleted:
+    //       this.state.hireCompleted !== "" ? this.state.hireCompleted : ""
+    //   }
+    // };
     //console.log("Call");
     //console.log(this.data.ongoing);
     //console.log(this.state.id);

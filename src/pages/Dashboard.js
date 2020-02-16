@@ -84,17 +84,19 @@ export default class Dashboard extends Component {
             this.setState({ pasthires: joined });
           }
         });
-        console.log(this.state.assignedhires);
+        //console.log(this.state.assignedhires);
         // console.log(this.state.upcominghires);
         // console.log(this.state.ongoing);
-        console.log(this.state.pasthires);
+        //console.log(this.state.pasthires);
       })
       .catch(function(error) {
         console.log("Error getting documents: ", error);
       });
+     console.log(this.state.token);
   }
   logout() {
     firebase.auth().signOut();
+    AsyncStorage.removeItem("id")
     this.props.navigation.goBack();
   }
   render() {

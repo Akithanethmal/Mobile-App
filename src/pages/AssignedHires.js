@@ -46,26 +46,26 @@ export default class AssignedHires extends Component {
       .catch(error => console.log(error));
   }
   async acceptHire() {
-    if (this.state.doc.hireType == "import") {
-      timeline = {
-        truckDispatched: "",
-        atPickupLocation: "",
-        cargoLocation: "",
-        inTransit: "",
-        destinationReached: "",
-        hireCompleted: ""
-      };
-    } else {
-      timeline = {
-        truckDispatched: "",
-        atContainerPickupLocation: "",
-        inTransitOne: "",
-        cargoLoaded: "",
-        inTransitTwo: "",
-        loadingPortReached: "",
-        hireCompleted: ""
-      };
-    }
+    // if (this.state.doc.hireType == "import") {
+    //   timeline = {
+    //     truckDispatched: "",
+    //     atPickupLocation: "",
+    //     cargoLocation: "",
+    //     inTransit: "",
+    //     destinationReached: "",
+    //     hireCompleted: ""
+    //   };
+    // } else {
+    //   timeline = {
+    //     truckDispatched: "",
+    //     atContainerPickupLocation: "",
+    //     inTransitOne: "",
+    //     cargoLoaded: "",
+    //     inTransitTwo: "",
+    //     loadingPortReached: "",
+    //     hireCompleted: ""
+    //   };
+    // }
 
     // console.log("call accept");
     // console.log(this.state.doc.id);
@@ -76,7 +76,7 @@ export default class AssignedHires extends Component {
       .doc(this.state.doc.id)
       .update({
         hireStatus: "ongoing",
-        timeline: timeline
+        // timeline: timeline
       })
       .then(() => {
         alert("Successfully Accept Hire");
