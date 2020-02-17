@@ -299,15 +299,26 @@ export default class Timeline_import extends Component {
                         return { timeline };
                       },
                       () => this.timelineUpdate()
-                    ),
-                      firebase
-                        .firestore()
-                        .collection("hires")
-                        .doc(this.state.id)
-                        .update({
-                          hireStatus: "completed"
-                        });
+                    );
+                    // firebase
+                    //   .firestore()
+                    //   .collection("hires")
+                    //   .doc(this.state.id)
+                    //   .update({
+                    //     hireStatus: "completed"
+                    //   });
                     // this.props.navigation.goBack();
+                    const notifRef = firebase
+                      .firestore()
+                      .collection("notifications");
+                    let data = {
+                      to: "Yk1pyMHhAQhk3PhGS6JRxcNSHdT2",
+                      data: "Hire Marked as Completed",
+                      link: "/admin/hires/" + this.state.id,
+                      type: "hire completed",
+                      createdAt: new Date()
+                    };
+                    notifRef.add(data);
                   } else {
                     alert("Incorrect Order!");
                   }

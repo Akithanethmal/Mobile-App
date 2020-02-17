@@ -299,6 +299,18 @@ export default class TimeLine extends Component {
         this.setState({ isLoading: false });
         console.log(error);
       });
+
+    // if (this.state.timeline.hireCompleted.set == 0) {
+    //   const notifRef = Firebase.firestore().collection("notifications");
+    //   let data = {
+    //     to: "Yk1pyMHhAQhk3PhGS6JRxcNSHdT2",
+    //     data: "Hire Marked as Completed",
+    //     link: "/admin/hires/" + this.state.id,
+    //     type: "hire completed",
+    //     createdAt: new Date()
+    //   };
+    //   notifRef.add(data);
+    // }
   };
 
   render() {
@@ -332,14 +344,27 @@ export default class TimeLine extends Component {
                         return { timeline };
                       },
                       () => this.timelineUpdate()
-                    ),
-                      firebase
-                        .firestore()
-                        .collection("hires")
-                        .doc(this.state.id)
-                        .update({
-                          hireStatus: "completed"
-                        });
+                    );
+                    // firebase
+                    //   .firestore()
+                    //   .collection("hires")
+                    //   .doc(this.state.id)
+                    //   .update({
+                    //     hireStatus: "completed"
+                    //   });
+
+                    const notifRef = firebase.firestore().collection(
+                      "notifications"
+                    );
+                    let data = {
+                      to: "Yk1pyMHhAQhk3PhGS6JRxcNSHdT2",
+                      data: "Hire Marked as Completed",
+                      link: "/admin/hires/" + this.state.id,
+                      type: "hire completed",
+                      createdAt: new Date()
+                    };
+                    notifRef.add(data);
+
                     this.props.navigation.goBack();
                   } else {
                     alert("Incorrect Order!");

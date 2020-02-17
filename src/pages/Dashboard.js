@@ -8,7 +8,8 @@ import {
   Text,
   Image,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  ActivityIndicator
 } from "react-native";
 import firebase from "../../config/Firebase";
 import moment from "moment";
@@ -48,7 +49,8 @@ export default class Dashboard extends Component {
       assignedhires: [],
       upcominghires: [],
       pasthires: [],
-      ongoing: []
+      ongoing: [],
+      
     });
   }
   getHireData() {
@@ -92,75 +94,83 @@ export default class Dashboard extends Component {
       .catch(function(error) {
         console.log("Error getting documents: ", error);
       });
-     console.log(this.state.token);
+    console.log(this.state.token);
   }
   logout() {
     firebase.auth().signOut();
-    AsyncStorage.removeItem("id")
+    AsyncStorage.removeItem("id");
     this.props.navigation.goBack();
   }
   render() {
-    return (
-      <ScrollView style={styles.container}>
-        <Card containerStyle={styles.upcardContainer}>
-          <View style={styles.subContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate("HireAssignment", {
-                  assignedhires: this.state.assignedhires
-                });
-              }}
-            >
-              <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate("UpcomingHires", {
-                  upcominghires: this.state.upcominghires
-                });
-              }}
-            >
-              <Text style={styles.buttonText}>UPCOMING HIRES</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate("PastHires", {
-                  pasthires: this.state.pasthires
-                });
-              }}
-            >
-              <Text style={styles.buttonText}>PAST HIRES</Text>
-            </TouchableOpacity>
-          </View>
-        </Card>
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.activityContainer}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    } else {
+      return (
+        <ScrollView style={styles.container}>
+          <Card containerStyle={styles.upcardContainer}>
+            <View style={styles.subContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  this.props.navigation.navigate("HireAssignment", {
+                    assignedhires: this.state.assignedhires
+                  });
+                }}
+              >
+                <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  this.props.navigation.navigate("UpcomingHires", {
+                    upcominghires: this.state.upcominghires
+                  });
+                }}
+              >
+                <Text style={styles.buttonText}>UPCOMING HIRES</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  this.props.navigation.navigate("PastHires", {
+                    pasthires: this.state.pasthires
+                  });
+                }}
+              >
+                <Text style={styles.buttonText}>PAST HIRES</Text>
+              </TouchableOpacity>
+            </View>
+          </Card>
 
-        <Card containerStyle={styles.downcardContainer}>
-          <View>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate("OngoinHires", {
-                  ongoing: this.state.ongoing
-                });
-              }}
-            >
-              <Text style={styles.buttonText}>ONGOING HIRES</Text>
-            </TouchableOpacity>
-          </View>
+          <Card containerStyle={styles.downcardContainer}>
+            <View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  this.props.navigation.navigate("OngoinHires", {
+                    ongoing: this.state.ongoing
+                  });
+                }}
+              >
+                <Text style={styles.buttonText}>ONGOING HIRES</Text>
+              </TouchableOpacity>
+            </View>
 
-          <Button
-            title="Party Hard"
-            type="solid"
-            raised
-            buttonStyle={styles.partyhardbutton}
-            onPress={() => this.logout()}
-          />
-        </Card>
-      </ScrollView>
-    );
+            <Button
+              title="Party Hard"
+              type="solid"
+              raised
+              buttonStyle={styles.partyhardbutton}
+              onPress={() => this.logout()}
+            />
+          </Card>
+        </ScrollView>
+      );
+    }
   }
 }
 
@@ -226,5 +236,10 @@ const styles = StyleSheet.create({
   },
   partyhardbutton: {
     backgroundColor: "#0b7a07"
+  },
+  activityContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center"
   }
 });
