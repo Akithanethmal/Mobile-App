@@ -39,6 +39,16 @@ export default class AssignedHires extends Component {
         hireStatus: "pending"
       })
       .then(() => {
+        const notifRef = firebase.firestore().collection("notifications");
+        let data = {
+          to: "Yk1pyMHhAQhk3PhGS6JRxcNSHdT2",
+          from: this.state.doc.id,
+          data: "Driver Rejected Hire Request",
+          link: "/admin/hires/" + this.state.doc.id,
+          type: "driver rejected",
+          createdAt: new Date()
+        };
+        notifRef.add(data);
         alert("Successfully Reject Hire");
         this.removedata(this.state.doc.id);
         this.props.navigation.goBack();
@@ -75,7 +85,7 @@ export default class AssignedHires extends Component {
       .collection("hires")
       .doc(this.state.doc.id)
       .update({
-        hireStatus: "ongoing",
+        hireStatus: "ongoing"
         // timeline: timeline
       })
       .then(() => {

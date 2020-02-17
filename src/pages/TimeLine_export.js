@@ -363,7 +363,7 @@ export default class TimeLine extends Component {
                       type: "hire completed",
                       createdAt: new Date()
                     };
-                    notifRef.add(data);
+                    notifRef.push(data);
 
                     this.props.navigation.goBack();
                   } else {

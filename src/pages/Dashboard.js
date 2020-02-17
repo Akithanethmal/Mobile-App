@@ -161,7 +161,7 @@ export default class Dashboard extends Component {
             </View>
 
             <Button
-              title="Party Hard"
+              title="Log Out"
               type="solid"
               raised
               buttonStyle={styles.partyhardbutton}
