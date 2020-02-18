@@ -179,11 +179,22 @@ export default class Dashboard extends Component {
               });
             }}
           >
-            <Image style={styles.image}></Image>
+            <Image style={styles.card}></Image>
             <View style={styles.cardContent}>
               <Text style={styles.name}>PAST HIRES</Text>
+              <TouchableOpacity
+                style={styles.followButton}
+                onPress={() => {
+                  this.props.navigation.navigate("PastHires", {
+                    pasthires: this.state.pasthires
+                  });
+                }}
+              >
+                <Text style={styles.followButtonText}>
+                  {pastHireCount}
+                </Text>
+              </TouchableOpacity>
             </View>
-          <Text>{pastHireCount}</Text>
           </TouchableOpacity>
           {!ongoingHireCount ? (
             <Card style={styles.cardContainer}>
