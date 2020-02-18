@@ -154,13 +154,12 @@ export default class OngoinHires extends Component {
               </View>
             </Card>
 
-            <TouchableHighlight
+            {/* <TouchableHighlight
               onPress={() => {
                 this.setState({ modalVisible: false });
               }}
             >
-              <Text></Text>
-            </TouchableHighlight>
+            </TouchableHighlight> */}
             <View style={styles.detailButton}>
               <Button
                 large

@@ -28,6 +28,7 @@ export default class Dashboard extends Component {
   }
   state = {
     token: "",
+    isLoading: false,
     assignedhires: [],
     upcominghires: [],
     pasthires: [],
@@ -38,7 +39,7 @@ export default class Dashboard extends Component {
       "willFocus",
       async () => {
         id = await AsyncStorage.getItem("id");
-        this.setState({ token: id });
+        this.setState({ token: id, isLoading: true });
         this.refreshState();
         this.getHireData();
       }
@@ -49,8 +50,7 @@ export default class Dashboard extends Component {
       assignedhires: [],
       upcominghires: [],
       pasthires: [],
-      ongoing: [],
-      
+      ongoing: []
     });
   }
   getHireData() {
@@ -86,6 +86,7 @@ export default class Dashboard extends Component {
             this.setState({ pasthires: joined });
           }
         });
+        this.setState({ isLoading: false });
         //console.log(this.state.assignedhires);
         // console.log(this.state.upcominghires);
         // console.log(this.state.ongoing);
@@ -166,6 +167,17 @@ export default class Dashboard extends Component {
               raised
               buttonStyle={styles.partyhardbutton}
               onPress={() => this.logout()}
+            />
+            <Button
+              title="Profile"
+              type="solid"
+              raised
+              buttonStyle={styles.partyhardbutton}
+              onPress={() => {
+                this.props.navigation.navigate("profile", {
+                  driverId: this.state.token
+                });
+              }}
             />
           </Card>
         </ScrollView>

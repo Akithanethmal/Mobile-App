@@ -7,6 +7,7 @@ import PastHires from "../src/pages/PastHires";
 import OngoinHires from "../src/pages/OngoinHires";
 import TimeLine_export from "../src/pages/TimeLine_export";
 import Timeline_import from "../src/pages/Timeline_import";
+import profile from "../src/pages/profile";
 
 const DashboardNavigator = createStackNavigator({
   Dashboard: {
@@ -29,6 +30,9 @@ const DashboardNavigator = createStackNavigator({
   },
   export: {
     screen: TimeLine_export
+  },
+  profile:{
+    screen:profile
   },
 
   initialRouteName: "Dashboard"
