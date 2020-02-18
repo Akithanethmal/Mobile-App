@@ -126,30 +126,30 @@ export default class OngoinHires extends Component {
               </View>
               <View>
                 <Text style={styles.subText}>
-                  Cargo Type: {this.state.doc.cargoType}
+                  Cargo Type: {this.state.doc.data.cargoType}
                 </Text>
               </View>
               <View>
                 <Text style={styles.subText}>
-                  Cargo Weight: {this.state.doc.weight}
+                  Cargo Weight: {this.state.doc.data.weight}
                 </Text>
               </View>
               <View>
                 <Text style={styles.subText}>
                   Vessel Arrival Date:{" "}
-                  {moment(this.state.doc.vesselArrivalDatetime).format(
+                  {moment(this.state.doc.data.vesselArrivalDatetime).format(
                     "MMM Do YYYY, h:mm:ss a"
                   )}
                 </Text>
               </View>
               <View>
                 <Text style={styles.subText}>
-                  Unloading Port: {this.state.doc.unloadingPort}
+                  Unloading Port: {this.state.doc.dat.unloadingPort}
                 </Text>
               </View>
               <View>
                 <Text style={styles.subText}>
-                  Destination: {this.state.doc.destination}
+                  Destination: {this.state.doc.data.destination}
                 </Text>
               </View>
             </Card>

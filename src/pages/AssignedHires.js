@@ -56,30 +56,6 @@ export default class AssignedHires extends Component {
       .catch(error => console.log(error));
   }
   async acceptHire() {
-    // if (this.state.doc.hireType == "import") {
-    //   timeline = {
-    //     truckDispatched: "",
-    //     atPickupLocation: "",
-    //     cargoLocation: "",
-    //     inTransit: "",
-    //     destinationReached: "",
-    //     hireCompleted: ""
-    //   };
-    // } else {
-    //   timeline = {
-    //     truckDispatched: "",
-    //     atContainerPickupLocation: "",
-    //     inTransitOne: "",
-    //     cargoLoaded: "",
-    //     inTransitTwo: "",
-    //     loadingPortReached: "",
-    //     hireCompleted: ""
-    //   };
-    // }
-
-    // console.log("call accept");
-    // console.log(this.state.doc.id);
-    // console.log(this.state.doc.hireType);
     firebase
       .firestore()
       .collection("hires")
@@ -154,117 +130,165 @@ export default class AssignedHires extends Component {
             this.setState({ modalVisible: false });
           }}
         >
-          <View style={{ marginTop: 22 }}>
-            <Card containerStyle={styles.subcardContainer}>
-              <View>
+          <ScrollView>
+            <View style={{ marginTop: 22 }}>
+              <Card containerStyle={styles.subcardContainer}>
                 <View>
-                  <Text style={styles.mainText}>{this.state.doc.hireType}</Text>
+                  <View>
+                    <Text style={styles.mainText}>
+                      {this.state.doc.hireType}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={styles.subText}>
+                      Date:{" "}
+                      {moment(this.state.doc.pickupDatetime).format(
+                        "MMM Do YYYY, h:mm:ss a"
+                      )}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={styles.subText}>
+                      Customer: {this.state.doc.customerName}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={styles.subText}>
+                      Vehicle: {this.state.doc.vehicleNo}
+                    </Text>
+                  </View>
+                </View>
+              </Card>
+              <Card containerStyle={styles.subcardContainer}>
+                <View>
+                  <Text style={styles.mainText}>Container Details</Text>
                 </View>
                 <View>
                   <Text style={styles.subText}>
-                    Date:{" "}
+                    Container Type: {this.state.doc.containerType}
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    Pickup Date:{" "}
                     {moment(this.state.doc.pickupDatetime).format(
                       "MMM Do YYYY, h:mm:ss a"
                     )}
                   </Text>
                 </View>
                 <View>
-                  <Text style={styles.subText}>
-                    Customer: {this.state.doc.customerName}
+                  <Text h4>
+                    {"\n"}
+                    Container Location
                   </Text>
                 </View>
                 <View>
                   <Text style={styles.subText}>
-                    Vehicle: {this.state.doc.vehicleNo}
+                    AddressLine 1:{this.state.doc.containerPickupAddressLine1}
                   </Text>
                 </View>
-              </View>
-            </Card>
-            <Card containerStyle={styles.subcardContainer}>
-              <View>
-                <Text style={styles.mainText}>Container Details</Text>
-              </View>
-              <View>
-                <Text style={styles.subText}>
-                  Container Type: {this.state.doc.containerType}
-                </Text>
-              </View>
-              <View>
-                <Text style={styles.subText}>
-                  Pickup Date:{" "}
-                  {moment(this.state.doc.pickupDatetime).format(
-                    "MMM Do YYYY, h:mm:ss a"
-                  )}
-                </Text>
-              </View>
-              <View>
-                <Text style={styles.subText}>
-                  Container Location: {this.state.doc.pickupLocation}
-                </Text>
-              </View>
-            </Card>
-            <Card containerStyle={styles.subcardContainer}>
-              <View>
-                <Text style={styles.mainText}>Cargo Details</Text>
-              </View>
-              <View>
-                <Text style={styles.subText}>
-                  Cargo Type: {this.state.doc.cargoType}
-                </Text>
-              </View>
-              <View>
-                <Text style={styles.subText}>
-                  Cargo Weight: {this.state.doc.weight}
-                </Text>
-              </View>
-              <View>
-                <Text style={styles.subText}>
-                  Vessel Arrival Date:{" "}
-                  {moment(this.state.doc.vesselArrivalDatetime).format(
-                    "MMM Do YYYY, h:mm:ss a"
-                  )}
-                </Text>
-              </View>
-              <View>
-                <Text style={styles.subText}>
-                  Unloading Port: {this.state.doc.unloadingPort}
-                </Text>
-              </View>
-              <View>
-                <Text style={styles.subText}>
-                  Destination: {this.state.doc.destination}
-                </Text>
-              </View>
-            </Card>
+                <View>
+                  <Text style={styles.subText}>
+                    AddressLine 2:{this.state.doc.containerPickupAddressLine2}
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    City:{this.state.doc.containerPickupCity}
+                  </Text>
+                </View>
+              </Card>
+              <Card containerStyle={styles.subcardContainer}>
+                <View>
+                  <Text style={styles.mainText}>Cargo Details</Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    Cargo Type: {this.state.doc.cargoType}
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    Cargo Weight: {this.state.doc.weight}
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    Vessel Arrival Date:{" "}
+                    {moment(this.state.doc.vesselArrivalDatetime).format(
+                      "MMM Do YYYY, h:mm:ss a"
+                    )}
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    Unloading Port: {this.state.doc.unloadingPort}
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    Unloading Terminal: {this.state.doc.unloadingTerminal}
+                  </Text>
+                </View>
+              </Card>
+              <Card containerStyle={styles.subcardContainer}>
+                <View>
+                  <Text style={styles.mainText}>Destination Address </Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    AddressLine1:{this.state.doc.destinationAddressLine1}
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    AddressLine2:{this.state.doc.destinationAddressLine2}
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>
+                    City:{this.state.doc.destinationCity}
+                  </Text>
+                </View>
+              </Card>
+              <Card containerStyle={styles.subcardContainer}>
+                <View>
+                  <Text style={styles.mainText}>Remarks</Text>
+                </View>
+                <View>
+                  <Text style={styles.subText}>{this.state.doc.remarks}</Text>
+                </View>
+              </Card>
 
-            <TouchableHighlight
-              onPress={() => {
-                this.setState({ modalVisible: false });
-              }}
-            >
-              <Text></Text>
-            </TouchableHighlight>
-            <View style={styles.detailButton}>
-              <Button
-                large
-                // leftIcon={{ name: "edit" }}
-                type="outline"
-                title="Accept Hire"
-                ContainerssStyle={{ borderColor: "#00f" }}
-                onPress={() => this.acceptHire()}
-              />
+              <TouchableHighlight
+                onPress={() => {
+                  this.setState({ modalVisible: false });
+                }}
+              >
+                <Text></Text>
+              </TouchableHighlight>
+              <View style={styles.detailButton}>
+                <Button
+                  large
+                  // leftIcon={{ name: "edit" }}
+                  type="outline"
+                  title="Accept Hire"
+                  ContainerssStyle={{ borderColor: "#00f" }}
+                  onPress={() => this.acceptHire()}
+                />
+              </View>
+              <View style={styles.detailButton}>
+                <Button
+                  // leftIcon={{ name: "delete" }}
+                  type="outline"
+                  title="Reject Hire"
+                  color="#f00"
+                  // buttonStyle={{borderColor:'#f00', color:'#f00'}}
+                  onPress={() => this.rejectData()}
+                />
+              </View>
             </View>
-            <View style={styles.detailButton}>
-              <Button
-                // leftIcon={{ name: "delete" }}
-                type="outline"
-                title="Reject Hire"
-                color="#f00"
-                // buttonStyle={{borderColor:'#f00', color:'#f00'}}
-                onPress={() => this.rejectData()}
-              />
-            </View>
-          </View>
+          </ScrollView>
         </Modal>
       </ScrollView>
     );

@@ -28,6 +28,7 @@ export default class Dashboard extends Component {
   }
   state = {
     token: "",
+    doc: "",
     isLoading: false,
     assignedhires: [],
     upcominghires: [],
@@ -42,9 +43,13 @@ export default class Dashboard extends Component {
         this.setState({ token: id, isLoading: true });
         this.refreshState();
         this.getHireData();
+        this.getData();
       }
     );
   }
+  getData = async () => {
+    this.setState({ doc: doc.ongoing });
+  };
   refreshState() {
     this.setState({
       assignedhires: [],
@@ -89,13 +94,12 @@ export default class Dashboard extends Component {
         this.setState({ isLoading: false });
         //console.log(this.state.assignedhires);
         // console.log(this.state.upcominghires);
-        // console.log(this.state.ongoing);
-        //console.log(this.state.pasthires);
+        console.log(this.state.ongoing);
+        // console.log(this.state.pasthires);
       })
       .catch(function(error) {
         console.log("Error getting documents: ", error);
       });
-    console.log(this.state.token);
   }
   logout() {
     firebase.auth().signOut();
@@ -110,76 +114,146 @@ export default class Dashboard extends Component {
         </View>
       );
     } else {
+      const assignedHiresCount = this.state.assignedhires.length;
+      const upcomingHiresCount = this.state.upcominghires.length;
+      const ongoingHireCount = this.state.ongoing.length;
+
       return (
-        <ScrollView style={styles.container}>
-          <Card containerStyle={styles.upcardContainer}>
-            <View style={styles.subContainer}>
+        <ScrollView>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => {
+              this.props.navigation.navigate("HireAssignment", {
+                assignedhires: this.state.assignedhires
+              });
+            }}
+          >
+            <Image style={styles.card}></Image>
+            <View style={styles.cardContent}>
+              <Text style={styles.name}>ASSIGNED HIRES</Text>
               <TouchableOpacity
-                style={styles.button}
+                style={styles.followButton}
                 onPress={() => {
                   this.props.navigation.navigate("HireAssignment", {
                     assignedhires: this.state.assignedhires
                   });
                 }}
               >
-                <Text style={styles.buttonText}>ASSIGNED HIRES</Text>
+                <Text style={styles.followButtonText}>
+                  {assignedHiresCount}
+                </Text>
               </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => {
+              this.props.navigation.navigate("UpcomingHires", {
+                upcominghires: this.state.upcominghires
+              });
+            }}
+          >
+            <Image style={styles.card}></Image>
+            <View style={styles.cardContent}>
+              <Text style={styles.name}>UPCOMING HIRES</Text>
               <TouchableOpacity
-                style={styles.button}
+                style={styles.followButton}
                 onPress={() => {
                   this.props.navigation.navigate("UpcomingHires", {
                     upcominghires: this.state.upcominghires
                   });
                 }}
               >
-                <Text style={styles.buttonText}>UPCOMING HIRES</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  this.props.navigation.navigate("PastHires", {
-                    pasthires: this.state.pasthires
-                  });
-                }}
-              >
-                <Text style={styles.buttonText}>PAST HIRES</Text>
+                <Text style={styles.followButtonText}>
+                  {assignedHiresCount}
+                </Text>
               </TouchableOpacity>
             </View>
-          </Card>
-
-          <Card containerStyle={styles.downcardContainer}>
-            <View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  this.props.navigation.navigate("OngoinHires", {
-                    ongoing: this.state.ongoing
-                  });
-                }}
-              >
-                <Text style={styles.buttonText}>ONGOING HIRES</Text>
-              </TouchableOpacity>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => {
+              this.props.navigation.navigate("PastHires", {
+                pasthires: this.state.pasthires
+              });
+            }}
+          >
+            <Image style={styles.image}></Image>
+            <View style={styles.cardContent}>
+              <Text style={styles.name}>PAST HIRES</Text>
             </View>
-
-            <Button
-              title="Log Out"
-              type="solid"
-              raised
-              buttonStyle={styles.partyhardbutton}
-              onPress={() => this.logout()}
-            />
-            <Button
-              title="Profile"
-              type="solid"
-              raised
-              buttonStyle={styles.partyhardbutton}
+          </TouchableOpacity>
+          {!ongoingHireCount ? (
+            <Card style={styles.cardContainer}>
+              <View style={styles.subContainer}>
+                <View>
+                  <Text h3>
+                    Ongoing Hire for {moment().format("MMM Do YYYY")}
+                  </Text>
+                </View>
+                <View>
+                  <Text h5>There is no hire assigned for today!</Text>
+                </View>
+              </View>
+            </Card>
+          ) : (
+            <Card style={styles.cardContainer}>
+              <View style={styles.subContainer}>
+                <View>
+                  <Text h2>Ongoing Hire</Text>
+                </View>
+                <View>
+                  <Text h5>{this.state.ongoing.hireType}</Text>
+                </View>
+                <View>
+                  <Text h5>Customer:{this.state.ongoing.customerName}</Text>
+                </View>
+                <View>
+                  <Text h5>
+                    Pickup Location:{this.state.ongoing.pickupLocation}
+                  </Text>
+                </View>
+                <View>
+                  <Text h5>
+                    Date and Time:{this.state.ongoing.pickupDatetime}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.detailButton}>
+                <Button
+                  large
+                  backgroundColor={"#999999"}
+                  color={"#FFFFFF"}
+                  title="Manage Hire"
+                  buttonStyle={{ backgroundColor: "green" }}
+                  onPress={() => {
+                    this.props.navigation.navigate("OngoinHires", {
+                      ongoing: this.state.ongoing
+                    });
+                  }}
+                />
+              </View>
+            </Card>
+          )}
+          <View style={{ paddingTop: 15 }}>
+            <TouchableOpacity
+              style={styles.signoutButtonBottom}
               onPress={() => {
                 this.props.navigation.navigate("profile", {
                   driverId: this.state.token
                 });
               }}
-            />
-          </Card>
+            >
+              <Text style={styles.signoutButtonText}>Profile</Text>
+            </TouchableOpacity>
+          </View>
+          <Button
+            title="Logout"
+            type="solid"
+            raised
+            buttonStyle={styles.signoutButtonBottom}
+            onPress={() => this.logout()}
+          />
         </ScrollView>
       );
     }
@@ -187,41 +261,22 @@ export default class Dashboard extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  cardContainer: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#fff", //#191919
-    paddingVertical: 40
-    //edting
-  },
-  DashboardTextContainer: {
-    height: "10%",
-    width: "100%",
-    alignContent: "center",
-    justifyContent: "center"
-  },
-  DashboardText: {
-    textAlign: "center",
-    fontSize: 40,
-    fontWeight: "bold",
-    color: "#000",
-    justifyContent: "center"
-  },
-  upcardContainer: {
-    flexShrink: 1,
-    padding: 20,
-    margin: 10,
-    height: 275,
-    width: "95%",
-    justifyContent: "center",
-    borderRadius: 10
+    padding: 20
   },
   subContainer: {
-    width: "100%",
+    flex: 1,
     paddingTop: 10,
     paddingBottom: 20,
     borderBottomWidth: 2,
     borderBottomColor: "#CCCCCC"
+  },
+ 
+  view: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   },
   button: {
     marginTop: 7,
@@ -233,7 +288,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     width: "100%",
-    height: 50
+    height: 50,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center"
   },
   buttonText: {
     fontSize: 25,
@@ -241,13 +299,102 @@ const styles = StyleSheet.create({
     color: "black",
     paddingVertical: 8
   },
-  downcardContainer: {
-    flexShrink: 1,
-    width: "95%",
-    borderRadius: 10
+  signoutButtonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
+    textAlignVertical: "center"
   },
-  partyhardbutton: {
-    backgroundColor: "#0b7a07"
+  signout: {
+    marginTop: 10,
+    marginRight: 2,
+    alignSelf: "flex-end",
+    marginBottom: 5,
+    paddingVertical: 5,
+    alignItems: "center",
+    backgroundColor: "#007bff",
+    borderColor: "#007bff",
+    borderWidth: 1,
+    borderRadius: 5,
+    width: 60
+  },
+  signoutButtonBottom: {
+    marginTop: 10,
+    margin: 5,
+    marginBottom: 5,
+    paddingVertical: 12,
+    paddingTop: 10,
+    alignItems: "center",
+    backgroundColor: "#007bff",
+    borderColor: "#007bff",
+    borderWidth: 1,
+    borderRadius: 5
+  },
+  detailButton: {
+    marginTop: 10
+  },
+  // test
+  contentList: {
+    flex: 1
+  },
+  cardContent: {
+    marginLeft: 20,
+    marginTop: 10
+  },
+  image: {
+    height: 50,
+    width: 50,
+    alignSelf: "center"
+  },
+
+  card: {
+    shadowColor: "#00000021",
+    shadowOffset: {
+      width: 0,
+      height: 6
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
+
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 20,
+    backgroundColor: "white",
+    padding: 10,
+    flexDirection: "row",
+    borderRadius: 30
+  },
+
+  name: {
+    fontSize: 28,
+    flex: 1,
+    alignSelf: "center",
+    color: "#3399ff",
+    fontWeight: "bold"
+  },
+  count: {
+    fontSize: 20,
+    flex: 1,
+    alignSelf: "center",
+    color: "#6666ff"
+  },
+  followButton: {
+    marginTop: 10,
+    height: 35,
+    width: 100,
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "#0ea1c9"
+  },
+  followButtonText: {
+    color: "#0ea1c9",
+    fontSize: 20
   },
   activityContainer: {
     flex: 1,
