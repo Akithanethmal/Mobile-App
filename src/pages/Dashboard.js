@@ -117,6 +117,7 @@ export default class Dashboard extends Component {
       const assignedHiresCount = this.state.assignedhires.length;
       const upcomingHiresCount = this.state.upcominghires.length;
       const ongoingHireCount = this.state.ongoing.length;
+      const pastHireCount =this.state.pasthires.length;
 
       return (
         <ScrollView>
@@ -165,7 +166,7 @@ export default class Dashboard extends Component {
                 }}
               >
                 <Text style={styles.followButtonText}>
-                  {assignedHiresCount}
+                  {upcomingHiresCount}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -182,6 +183,7 @@ export default class Dashboard extends Component {
             <View style={styles.cardContent}>
               <Text style={styles.name}>PAST HIRES</Text>
             </View>
+          <Text>{pastHireCount}</Text>
           </TouchableOpacity>
           {!ongoingHireCount ? (
             <Card style={styles.cardContainer}>
