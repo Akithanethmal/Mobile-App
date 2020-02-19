@@ -71,6 +71,7 @@ export default class OngoinHires extends Component {
             this.setState({ modalVisible: false });
           }}
         >
+          <ScrollView>
           <View style={{ marginTop: 22 }}>
             <Card containerStyle={styles.subcardContainer}>
               <View>
@@ -115,8 +116,24 @@ export default class OngoinHires extends Component {
                 </Text>
               </View>
               <View>
+                <Text h4>
+                  {"\n"}
+                  Container Location
+                </Text>
+              </View>
+              <View>
                 <Text style={styles.subText}>
-                  Container Location: {this.state.doc.pickupLocation}
+                  AddressLine 1:{this.state.doc.containerPickupAddressLine1}
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.subText}>
+                  AddressLine 2:{this.state.doc.containerPickupAddressLine2}
+                </Text>
+              </View>
+              <View style={styles.subText}>
+                <Text style={styles.subText}>
+                  City:{this.state.doc.containerPickupCity}
                 </Text>
               </View>
             </Card>
@@ -126,31 +143,56 @@ export default class OngoinHires extends Component {
               </View>
               <View>
                 <Text style={styles.subText}>
-                  Cargo Type: {this.state.doc.data.cargoType}
+                  Cargo Type: {this.state.doc.cargoType}
                 </Text>
               </View>
               <View>
                 <Text style={styles.subText}>
-                  Cargo Weight: {this.state.doc.data.weight}
+                  Cargo Weight: {this.state.doc.weight}
                 </Text>
               </View>
               <View>
                 <Text style={styles.subText}>
                   Vessel Arrival Date:{" "}
-                  {moment(this.state.doc.data.vesselArrivalDatetime).format(
+                  {moment(this.state.doc.vesselArrivalDatetime).format(
                     "MMM Do YYYY, h:mm:ss a"
                   )}
                 </Text>
               </View>
               <View>
                 <Text style={styles.subText}>
-                  Unloading Port: {this.state.doc.dat.unloadingPort}
+                  Unloading Port: {this.state.doc.unloadingPort}
                 </Text>
               </View>
               <View>
                 <Text style={styles.subText}>
-                  Destination: {this.state.doc.data.destination}
+                  Unloading Terminal:{this.state.doc.unloadingTerminal}
                 </Text>
+              </View>
+            </Card>
+            <Card containerStyle={styles.subcardContainer}>
+              <View>
+                <Text style={styles.mainText}>Destination Address</Text>
+              </View>
+              <View>
+                <Text style={styles.subText}>
+                  AddressLine 1:{this.state.doc.destinationAddressLine1}
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.subText}>
+                  AddressLine 2:{this.state.doc.destinationAddressLine2}
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.subText}>
+                  City:{this.state.doc.destinationCity}
+                </Text>
+              </View>
+            </Card>
+            <Card containerStyle={styles.subcardContainer}>
+              <View>
+                <Text style={styles.mainText}>Remarks</Text>
               </View>
             </Card>
 
@@ -180,6 +222,7 @@ export default class OngoinHires extends Component {
               />
             </View>
           </View>
+          </ScrollView>
         </Modal>
       </ScrollView>
     );
